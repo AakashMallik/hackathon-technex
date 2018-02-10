@@ -26,46 +26,32 @@ class ReverseMappingUtility {
 	private HashMap<String, ArrayList<String>> wordVsConceptHash = new HashMap<>();
 
 	ReverseMappingUtility(ArrayList<String> fileList, String __PATH__) {
-		// generate the map once during initialization
-		String[] array_1 = { "book_concept", "create_concept" };
-		String[] array_2 = { "talk_concept" };
-		String[] array_3 = { "call_concept" };
-		wordVsConceptHash.put("make", new ArrayList<String>(Arrays.asList(array_1)));
-		wordVsConceptHash.put("message", new ArrayList<String>(Arrays.asList(array_2)));
-		wordVsConceptHash.put("written", new ArrayList<String>(Arrays.asList(array_2)));
-		wordVsConceptHash.put("place", new ArrayList<String>(Arrays.asList(array_3)));
-		wordVsConceptHash.put("phone", new ArrayList<String>(Arrays.asList(array_3)));
-		wordVsConceptHash.put("make", new ArrayList<String>(Arrays.asList(array_3)));
-		System.out.println(__PATH__);
-		for (String f : fileList) {
-			// System.out.println(__PATH__ + "/" + file);
-			File file = new File("./resources/Concept/"+f);
-			try{
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			String line = reader.readLine();
+		for (String file : fileList) {
+			File fileOject = new File(__PATH__ + "/" + file);
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
+				String line = reader.readLine();
 
-			while (line != null) {
-				String first_word = line.split("\\s+")[0];
-				String concept = f.split("\\.")[0];
+				while (line != null) {
+					String first_word = line.split("\\s+")[0];
+					String concept = file.split("\\.")[0];
 
-				if (wordVsConceptHash.get(first_word) == null) {
-					wordVsConceptHash.put(first_word, new ArrayList<String>());
-					wordVsConceptHash.get(first_word).add(concept);
-				} else {
-					wordVsConceptHash.get(first_word).add(concept);
+					if (wordVsConceptHash.get(first_word) == null) {
+						wordVsConceptHash.put(first_word, new ArrayList<String>());
+						wordVsConceptHash.get(first_word).add(concept);
+					} else {
+						if (!wordVsConceptHash.get(first_word).contains(concept)) {
+							wordVsConceptHash.get(first_word).add(concept);
+						}
+					}
+					line = reader.readLine();
 				}
-			}
-			reader.close();
-		}catch(Exception e){
-			System.out.println("Error reported"+e);
-			}
-
-
+				reader.close();
+			} catch (Exception e) {
+				System.out.println("Error reported"+e);
 		}
-
-		System.out.println(wordVsConceptHash);
 	}
-
+}
 	public ArrayList<String> findConceptList(String token) {
 		ArrayList<String> conceptList = this.wordVsConceptHash.get(token);
 		if (conceptList != null) {
@@ -80,28 +66,31 @@ class ReverseMappingUtility {
 class ConceptTableUtility {
 	private HashMap<String, HashMap<String, Boolean>> wordVsConceptTable = new HashMap<>();
 
-	ConceptTableUtility() {
-		HashMap<String, Boolean> temp_1 = new HashMap<>();
-		temp_1.put("place", true);
-		temp_1.put("phone", true);
-		temp_1.put("call", true);
-		temp_1.put("make", true);
-		temp_1.put("a", true);
-		this.wordVsConceptTable.put("call_concept", temp_1);
+	ConceptTableUtility(ArrayList<String> fileList, String __PATH__) {
+		for (String file : fileList) {
+			HashMap<String, Boolean> inner_map = new HashMap<>();
+			String concept = file.split("\\.")[0];
+			wordVsConceptTable.put(concept, inner_map);
 
-		temp_1 = new HashMap<>();
-		temp_1.put("make", true);
-		this.wordVsConceptTable.put("book_concept", temp_1);
+			File fileOject = new File(__PATH__ + "/" + file);
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
+				String line = reader.readLine();
 
-		temp_1 = new HashMap<>();
-		temp_1.put("make", true);
-		temp_1.put("create", true);
-		this.wordVsConceptTable.put("create_concept", temp_1);
-
-		temp_1 = new HashMap<>();
-		temp_1.put("message", true);
-		temp_1.put("written", true);
-		this.wordVsConceptTable.put("message_concept", temp_1);
+				while (line != null) {
+					String[] wordList = line.split("\\s+");
+					for (String word : wordList) {
+						if (!inner_map.containsKey(word)) {
+							inner_map.put(word, true);
+						}
+					}
+					line = reader.readLine();
+				}
+				reader.close();
+			} catch (Exception e) {
+				System.out.println("Error reported");
+			}
+		}
 	}
 
 	public ArrayList<String> findConceptList(ArrayList<String> conceptList, String token) {
@@ -125,7 +114,7 @@ class ConceptTableUtility {
 public class Concept_parser {
 	public String generate_concept(String sentense) {
 
-		String __RESOUCSE_PATH__ = "/resources/";
+		String __RESOUCSE_PATH__ = "./resources/";
 
 		// not working code
 		// FileSystemUtility fileSystemUtility = new FileSystemUtility();
@@ -143,7 +132,7 @@ public class Concept_parser {
 				__RESOUCSE_PATH__ + "Concept");
 
 		// get utility object for subsequent word tagging
-		ConceptTableUtility conceptTableUtility = new ConceptTableUtility();
+		ConceptTableUtility conceptTableUtility = new ConceptTableUtility(fileList, __RESOUCSE_PATH__ + "Concept");
 
 		sentense = sentense.toLowerCase();
 		String[] tokenList = sentense.split("\\s+");
