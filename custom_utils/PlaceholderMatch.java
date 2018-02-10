@@ -4,26 +4,27 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 
-public class PlaceholderMatch{
-	static String names_path = "./resources/PlaceHolder/contact_name.txt";
-	static String places_path = "./resources/PlaceHolder/places.txt";
+public class PlaceholderMatch {
+	String names_path = "./resources/PlaceHolder/contact_name.txt";
+	String places_path = "./resources/PlaceHolder/places.txt";
 
-	static ArrayList<String> all_names = new ArrayList<String>();
-	static ArrayList<String> all_names_individual = new ArrayList<String>();
-	static ArrayList<String> all_places = new ArrayList<String>();
+	ArrayList<String> all_names = new ArrayList<String>();
+	ArrayList<String> all_names_individual = new ArrayList<String>();
+	ArrayList<String> all_places = new ArrayList<String>();
 
-	static int max_len_name = 0;
-	static int max_len_place = 0;
-	public PlaceholderMatch(){
+	int max_len_name = 0;
+	int max_len_place = 0;
+
+	public PlaceholderMatch() {
 		// System.out.println("Constructor called");
 		read_contents();
 	}
 
-	public static void read_contents(){
+	public void read_contents() {
 		// Read all names
 		BufferedReader reader;
-		String [] arr_of_str;
-		try{
+		String[] arr_of_str;
+		try {
 			reader = new BufferedReader(new FileReader(names_path));
 			String line = reader.readLine();
 			while (line != null) {
@@ -41,14 +42,13 @@ public class PlaceholderMatch{
 				// read next line
 				line = reader.readLine();
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// System.out.println(all_names);
 
 		// Now get placess names
-		try{
+		try {
 			reader = new BufferedReader(new FileReader(places_path));
 			String line = reader.readLine();
 			while (line != null) {
@@ -65,8 +65,7 @@ public class PlaceholderMatch{
 				// read next line
 				line = reader.readLine();
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// System.out.println(all_places);
@@ -74,7 +73,7 @@ public class PlaceholderMatch{
 		return;
 	}
 
-	public static double jaro_winkler_dist(String a, String b){
+	public double jaro_winkler_dist(String a, String b) {
 		if (a.equals(b)) {
 			return 1.0;
 		}
@@ -92,12 +91,12 @@ public class PlaceholderMatch{
 		String shorter = a.length() < b.length() ? a : b;
 		String longer = a.length() >= b.length() ? a : b;
 
-		for (int i = 0; i < shorter.length(); i++){
+		for (int i = 0; i < shorter.length(); i++) {
 
 			// Find a match
 			boolean match_bool = shorter.charAt(i) == longer.charAt(i);
 
-			if (match_bool && i<4) {
+			if (match_bool && i < 4) {
 				prefix_match++;
 			}
 			if (match_bool) {
@@ -117,19 +116,19 @@ public class PlaceholderMatch{
 			}
 		}
 
-		if(matches == 0)
+		if (matches == 0)
 			return 0; // No need to progress ahead
 		transpositions = (int) (transpositions / 2.0);
 
-		double jaro_score = (1.0/3) * (matches / (double) longer.length() + matches / (double) shorter.length() + (matches - transpositions)
-			/ (double) matches);
+		double jaro_score = (1.0 / 3) * (matches / (double) longer.length() + matches / (double) shorter.length()
+				+ (matches - transpositions) / (double) matches);
 
 		double score = jaro_score + prefix_match * 0.1 * (1.0 - jaro_score);
 		// standard p value = 0.1 (consult wikipedia)
 		return jaro_score; // higher score == more simialarity
 	}
 
-	public static String find_placeholder(String s){
+	public String find_placeholder(String s) {
 		// System.out.println(jaro_winkler_dist("Delhi", "New Delhi"));
 		// return "Hello";
 		boolean flag = false;
@@ -138,14 +137,14 @@ public class PlaceholderMatch{
 
 		ArrayList<String> str_list = new ArrayList<String>();
 
-		String [] arr_of_str = s.trim().split(" ", 0);
+		String[] arr_of_str = s.trim().split(" ", 0);
 		for (String str : arr_of_str) {
 			str_list.add(str);
 		}
 
 		// First we check for names
 		for (int l = max_len_name; l > 0; l--) {
-			for (int i = 0; i<str_list.size(); i++) {
+			for (int i = 0; i < str_list.size(); i++) {
 				int j = Math.min(i + l - 1, str_list.size() - 1);
 				String temp = "";
 				for (int k = i; k <= j; k++) {
@@ -156,22 +155,22 @@ public class PlaceholderMatch{
 				flag = false;
 				for (String name : all_names) {
 					double similarity_score = jaro_winkler_dist(temp, name);
-					if(similarity_score > 0.85){
+					if (similarity_score > 0.85) {
 						// Match
 						str_list.set(i, "<contact_name>");
 						int c = i + 1;
-						while(c <= j){
-							str_list.remove(i+1);
+						while (c <= j) {
+							str_list.remove(i + 1);
 							c++;
 						}
 						flag = true;
 						break;
 					}
 				}
-				if(l == 1 && flag == false){
+				if (l == 1 && flag == false) {
 					for (String name : all_names_individual) {
 						double similarity_score = jaro_winkler_dist(temp, name);
-						if(similarity_score > 0.85){
+						if (similarity_score > 0.85) {
 							// Match
 							str_list.set(i, "<contact_name>");
 							flag = true;
@@ -191,7 +190,7 @@ public class PlaceholderMatch{
 		// Now for places
 		flag = false;
 		for (int l = max_len_place; l > 0; l--) {
-			for (int i = 0; i<str_list.size(); i++) {
+			for (int i = 0; i < str_list.size(); i++) {
 				int j = Math.min(i + l - 1, str_list.size() - 1);
 				String temp = "";
 				for (int k = i; k <= j; k++) {
@@ -205,12 +204,12 @@ public class PlaceholderMatch{
 					// if (name == "varanasi")
 					// 	System.out.println(str_list.get(i));
 					double similarity_score = jaro_winkler_dist(temp, name);
-					if(similarity_score > 0.75){
+					if (similarity_score > 0.75) {
 						// Match
 						str_list.set(i, "<place>");
 						int c = i + 1;
-						while(c <= j){
-							str_list.remove(i+1);
+						while (c <= j) {
+							str_list.remove(i + 1);
 							c++;
 						}
 						flag = true;
@@ -237,7 +236,6 @@ public class PlaceholderMatch{
 			// }
 		}
 
-
 		String final_answer = "";
 		for (String str : str_list) {
 			final_answer += str;
@@ -247,9 +245,9 @@ public class PlaceholderMatch{
 		return final_answer.trim();
 	}
 
-	// public static void main(String[] args) {
+	// public  void main(String[] args) {
 	// 	// Read all contents first
-  //
+	//
 	// }
 
 }

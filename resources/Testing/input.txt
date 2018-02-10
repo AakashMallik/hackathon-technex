@@ -20,3 +20,7 @@ Case#10:
 What is date today
 Case#11:
 Can you book a flight ticket on 14 February from Bangalore to Varanasi
+Case#12
+Can you please book a cab for me
+Case#13
+Generate a ticket for me now

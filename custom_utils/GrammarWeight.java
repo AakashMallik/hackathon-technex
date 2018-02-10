@@ -21,6 +21,10 @@ public class GrammarWeight {
       n = (n == null) ? new Double(1) : ++n;
       map.put(w, n);
     }
+    for (String w : words) {
+      Double n = map.get(w) / new Double(words.size());
+      map.put(w, n);
+    }
     return map;
   }
 
@@ -64,8 +68,18 @@ public class GrammarWeight {
       calculateIDF(al);
     }
     // log(N/count)
+    DateTimePlaceholder dt = new DateTimePlaceholder();
     for (String key : idf.keySet()) {
-      Double x = -Math.log(idf.get(key) / new Double(fileList.size()));
+      String pattern = ".*\\{\\w+\\}|\\<\\w+\\>.*";
+      Double x = new Double(0);
+      if (dt.isPattern(pattern, key)) {
+        // System.out.println(key);
+        x = -Math.log(idf.get(key) / new Double(fileList.size()));
+      } else {
+        // x = -Math.log(idf.get(key) / new Double(fileList.size()));
+        x = new Double(0);
+      }
+      // x = -Math.log(idf.get(key) / new Double(fileList.size()));
       idf.put(key, x);
     }
 

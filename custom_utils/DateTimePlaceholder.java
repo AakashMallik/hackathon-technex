@@ -30,6 +30,11 @@ public class DateTimePlaceholder {
     return b;
   }
 
+  // matching for any pattern
+  public boolean isPattern(String pattern, String st) {
+    return matchMe(pattern, st);
+  }
+
   // matching for DateTime Placeholder
   public boolean isDateTime(String st) {
     return matchMe(".*" + DATE_TIME + ".*", st);

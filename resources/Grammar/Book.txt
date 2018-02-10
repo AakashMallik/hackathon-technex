@@ -1,0 +1,2 @@
+{please_concept} you {book_concept} a hotel <date>
+{book_concept} a cab

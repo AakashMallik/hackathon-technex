@@ -45,6 +45,15 @@ class Main {
 			System.out.println("Error reported" + e);
 		}
 
+		// try {
+		// 	GrammarWeight gw = new GrammarWeight();
+		// 	HashMap<String, Double> idf = gw.getIDF(); // generates IDF of everyword.
+		// 	for (String ss : idf.keySet())
+		// 		System.out.println(ss + " " + String.valueOf(idf.get(ss)));
+		// } catch (Exception e) {
+		// 	System.out.println(e);
+		// }
+
 		// System.out.println(convertToGrammer("Can you book a flight ticket on 14 February from Bangalore to Varanasi"));
 	}
 }
