@@ -13,7 +13,7 @@ public class Preprocess {
       Pattern pattern = Pattern.compile(patternString);
       Matcher matcher = pattern.matcher(st);
       st = matcher.replaceAll("");
-      System.out.println(st);
+      // System.out.println(st);
       return st;
   }
   public String rExtraSpaces(String x){
@@ -21,8 +21,11 @@ public class Preprocess {
     Pattern pattern = Pattern.compile(patternString);
     Matcher matcher = pattern.matcher(x);
     x = matcher.replaceAll(" ");
-    System.out.println(x);
+    // System.out.println(x);
     return x;
+  }
+  public String allLower(String st){
+      return st.toLowerCase();
   }
 
 }

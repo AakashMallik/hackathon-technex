@@ -5,8 +5,8 @@ import java.util.*;
 import java.lang.*;
 
 public class PlaceholderMatch{
-	static String names_path = "./ProblemStatementIITBHU/PlaceHolder/contact_name.txt";
-	static String places_path = "./ProblemStatementIITBHU/PlaceHolder/places.txt";
+	static String names_path = "./resources/PlaceHolder/contact_name.txt";
+	static String places_path = "./resources/PlaceHolder/places.txt";
 
 	static ArrayList<String> all_names = new ArrayList<String>();
 	static ArrayList<String> all_names_individual = new ArrayList<String>();
@@ -14,7 +14,10 @@ public class PlaceholderMatch{
 
 	static int max_len_name = 0;
 	static int max_len_place = 0;
-
+	public PlaceholderMatch(){
+		// System.out.println("Constructor called");
+		read_contents();
+	}
 
 	public static void read_contents(){
 		// Read all names
@@ -81,11 +84,11 @@ public class PlaceholderMatch{
 
 		int matches = 0;
 		int prefix_match = 0; // at most 4 characters
-		int transpositions = 0; // characters that match but are not aligned, only close to each other 
-		
+		int transpositions = 0; // characters that match but are not aligned, only close to each other
+
 		int max_length = Math.max(a.length(), b.length());
 		int max_match_distance = Math.max((int) Math.floor(max_length / 2.0) - 1, 0);
-		
+
 		String shorter = a.length() < b.length() ? a : b;
 		String longer = a.length() >= b.length() ? a : b;
 
@@ -110,7 +113,7 @@ public class PlaceholderMatch{
 						transpositions++;
 						break;
 					}
-				}	
+				}
 			}
 		}
 
@@ -120,8 +123,8 @@ public class PlaceholderMatch{
 
 		double jaro_score = (1.0/3) * (matches / (double) longer.length() + matches / (double) shorter.length() + (matches - transpositions)
 			/ (double) matches);
-		
-		double score = jaro_score + prefix_match * 0.1 * (1.0 - jaro_score); 
+
+		double score = jaro_score + prefix_match * 0.1 * (1.0 - jaro_score);
 		// standard p value = 0.1 (consult wikipedia)
 		return jaro_score; // higher score == more simialarity
 	}
@@ -244,12 +247,9 @@ public class PlaceholderMatch{
 		return final_answer.trim();
 	}
 
-	public static void main(String[] args) {
-		// Read all contents first
-		read_contents();
+	// public static void main(String[] args) {
+	// 	// Read all contents first
+  //
+	// }
 
-		String s = find_placeholder("Dutt Can you book a flight ticket on 14 February from Bangalore to Varanasi for Ganguly");
-		System.out.println(s);
-	}
-	
 }

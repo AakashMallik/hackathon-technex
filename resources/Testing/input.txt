@@ -3,11 +3,7 @@ Can you please set an alarm at 3 pm tomorrow
 Case#2:
 Create tomorrow 8 pm event at Bangalore
 Case#3:
-<<<<<<< HEAD
- I want you to make tomorrow 9 O’clock morning event
-=======
-I want you to make tomorrow 9 Oï¿½clock morning event
->>>>>>> ead617e57424ed74eb89561c296caf7f06633f0b
+I want you to make tomorrow 9 Oclock morning event
 Case#4:
 Can you make a call to Amitabh for me
 Case#5:

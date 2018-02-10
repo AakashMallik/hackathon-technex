@@ -1,11 +1,11 @@
-
+package custom_utils;
 import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class FileRead {
+public class GrammarConversion {
 
   public void fun() throws Exception{
     // System.out.println("");

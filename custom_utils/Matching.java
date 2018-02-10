@@ -17,8 +17,8 @@ public class Matching {
    String date3 = num_date + "(th|rd|st|nd)?\\s+" +month +"\\s+"+num_year; // date format 3 (NUMBER MONTH YEAR) " " "
    String date4 = num_year + "\\s+" + month + "\\s+" + num_date + "(th|rd|st|nd)?"; // date format 4 ( YEAR MONTH NUMBER)
    String date = "("+date1+"|"+date2+"|"+date3+"|"+date4+")"; // any one of the date formats date1, date2, date3, date4.
-   String time =  "("+num_hour+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_hour+")?";
-   String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+"|"+num_date+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
+   String time =  "("+num_hour+")?" +"\\s+"+ "([ap][\\.]?m)" +"\\s+"+ "("+num_hour+")?";
+   String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+"|"+num_date+")?" +"\\s+"+ "([ap][\\.]?m)" +"\\s+"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
   // pattern matching function to find if the given pattern contains in a string(sentence).
    private boolean matchMe(String pattern, String st){
     Pattern re = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
@@ -44,12 +44,12 @@ public class Matching {
     System.out.println(st+" -> "+String.valueOf(result));
   }
   String replace(String st,String pat, String placeHolder){
-    Pattern pattern = Pattern.compile(pat);
+    Pattern pattern = Pattern.compile(pat,Pattern.CASE_INSENSITIVE);
     Matcher matcher = pattern.matcher(st);
     st = matcher.replaceAll(" "+placeHolder+" ");
     return st;
   }
-   public String rPlaceHolder(String st){
+   public String find_dateTime(String st){
      if(isDateTime(st)){
        return replace(st,DATE_TIME,"<dateTime>");
      }else if(isDay(st)){
