@@ -6,7 +6,7 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class Matching {
+public class DateTimePlaceholder {
 
   String num_hour = "([0]?[1-9]|1[0-2])"; // 2 digit clock hour
   String num_date = "([0]?[1-9]|[1-2][0-9]|3[0-1])"; // date 1 to 31
@@ -65,6 +65,7 @@ public class Matching {
     st = matcher.replaceAll(" " + placeHolder + " ");
     return st;
   }
+<<<<<<< HEAD:custom_utils/Matching.java
 
   public String find_dateTime(String st) {
     if (isDateTime(st)) {
@@ -78,6 +79,24 @@ public class Matching {
     }
 
     return st;
+=======
+   public String find_dateTime(String st){
+     if(isDateTime(st)){
+       return replace(st,DATE_TIME,"<dateTime>");
+     }else if(isDay(st)){
+       return replace(st,day,"<day>");
+     }else if(isDate(st)){
+       return replace(st,date,"<date>");
+     }else if(isNum(st)){
+       return replace(st,num_date,"<number>");
+     }
+
+       return st;
+   }
+   void TestDay(){
+    callme("jan"); callme("fgbgf january fgbfg"); callme("hfdhg 89789 feb dhf"); callme("2018 December 31st");
+    callme("Mon"); callme("tuesday");  callme("tomorrow");  callme("friday");
+>>>>>>> 778196df3f0f745d43e526802699d74c383c0d05:custom_utils/DateTimePlaceholder.java
   }
 
   void TestDay() {
