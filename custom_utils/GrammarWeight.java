@@ -22,8 +22,13 @@ public class GrammarWeight {
         n = (n == null) ? new Double(1) : ++n;
         map.put(w, n);
     }
+    for (String w : words) {
+      Double n = map.get(w)/new Double(words.size());
+      map.put(w, n);
+    }
     return map;
   }
+
   HashMap<String,String> calculateSymbol(ArrayList<String> words){
     Set<String> unqWords= new HashSet<String>(words);
     HashMap<String, String> sym = new HashMap<>();
