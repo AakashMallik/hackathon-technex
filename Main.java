@@ -5,18 +5,37 @@ import custom_utils.*;
 
 class Main {
 	public static void main(String[] args) {
+		// 	FileRead ff = new FileRead();
+		// 	try{
+		// 	ff.fun();
+		// }catch(Exception e){
+		// 	System.out.println(e);
+		// }
+		// Matching mm = new Matching();
+		// mm.test();
+		// mm.isDateTime("dfbd dfh");
+		Concept_parser concept_parser = new Concept_parser();
 
-		// Concept_parser Concept_parser = new Concept_parser();
-		// System.out.println(Concept_parser.generate_concept("Can you tell me when will it rain in Bangalore after 6 a.m. tomorrow"));
-		Matching mm = new Matching();
-		mm.test();
-		// System.out.println(mm.isDateTime("Can you tell me when will it rain in Bangalore after 6 a.m. tomorrow"));
-		// String st = "Can you tell me when!   # will it rain. in., Bangalore? after 6 a.m. tomorrow";
-		// System.out.println(st);
-		// Preprocess pp = new Preprocess();
+		// test script
+		File fileOject = new File("./resources/Testing/input.txt");
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(fileOject));
+			String line = reader.readLine();
 
-		// pp.rExtraSpaces( pp.rExtraChars(st));
-		// System.out.println(st+"\n"+pp.getIt());
+			while (line != null) {
+				if (line.subSequence(0, 4).equals("Case")) {
+					line = reader.readLine();
+					continue;
+				}
+				System.out.println(line);
+				System.out.println(concept_parser.generate_concept(line));
+				System.out.println();
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (Exception e) {
+			System.out.println("Error reported" + e);
+		}
 
 	}
 }
