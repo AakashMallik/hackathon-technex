@@ -17,7 +17,7 @@ public class Matching {
    String date3 = num_date + "(th|rd|st|nd)?\\s+" +month +"\\s+"+num_year; // date format 3 (NUMBER MONTH YEAR) " " "
    String date4 = num_year + "\\s+" + month + "\\s+" + num_date + "(th|rd|st|nd)?"; // date format 4 ( YEAR MONTH NUMBER)
    String date = "("+date1+"|"+date2+"|"+date3+"|"+date4+")"; // any one of the date formats date1, date2, date3, date4.
-
+   String time =  "("+num_hour+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_hour+")?";
 
   // pattern matching function to find if the given pattern contains in a string(sentence).
    private boolean matchMe(String pattern, String st){
@@ -26,12 +26,9 @@ public class Matching {
     boolean b = m.lookingAt();
     return b;
 }
-
-
-
   // matching for DateTime Placeholder
    public boolean isDateTime(String st){
-    String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
+    String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+"|"+num_date+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
     return matchMe(DATE_TIME,st);
   }
   // matching for day, today, tomorrow, sunday, mon etc.
@@ -43,11 +40,16 @@ public class Matching {
   // matching for <Number> whose range varies from 1-31
    public boolean isNum(String st){ return matchMe(num_date, st); }
 
+   public boolean isTime(String st){ return matchMe(time,st); }
+
    void callme(String st){
-    boolean result = isDay(st);
+    boolean result = isTime(st);
     System.out.println(st+" -> "+String.valueOf(result));
   }
 
+   public void replaceConcept(){
+
+   }
    void TestDay(){
     callme("jan"); callme("fgbgf january fgbfg"); callme("hfdhg 89789 feb dhf"); callme("2018 December 31st");
     callme("Mon"); callme("tuesday");  callme("tomorrow");  callme("friday");
@@ -74,7 +76,7 @@ public class Matching {
     callme("9 pm");
     callme("19 pm tomorrow");
     callme("a.m 10 today");
-    callme("SunDay 8 a.m");
+    callme("SunDay 8 aM");
     callme("Fri pm 3");
     callme("11 am 7th Jan");
     callme("P.m 06 March 20th");
