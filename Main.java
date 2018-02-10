@@ -5,22 +5,24 @@ import custom_utils.*;
 
 class Main {
 
-	public static String convertToGrammer(String st){
+	public static String convertToGrammer(String st) {
 		Preprocess pre = new Preprocess();
 		Matching ma = new Matching();
 		PlaceholderMatch pm = new PlaceholderMatch();
 		Concept_parser concept_parser = new Concept_parser();
+		GrammarAnalyser grammarAnalyser = new GrammarAnalyser();
 
 		st = pre.rExtraChars(st);
 		st = pre.rExtraSpaces(st);
+		st = concept_parser.generate_concept(st);
 		st = ma.find_dateTime(st);
 		st = pm.find_placeholder(st);
-		st = concept_parser.generate_concept(st);
 		st = pre.rExtraSpaces(st);
+		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
 
 		// test script
 		File fileOject = new File("./resources/Testing/input.txt");
@@ -43,8 +45,8 @@ class Main {
 			System.out.println("Error reported" + e);
 		}
 
-String st ="Dutt Can you book a flight ticket on 14 February from Bangalore to Varanasi for Ganguly";
-System.out.println(st);
+		String st = "Dutt Can you book a flight ticket on 14 February from Bangalore to Varanasi for Ganguly";
+		System.out.println(st);
 		System.out.println(convertToGrammer(st));
 		// System.out.println(st);
 	}
