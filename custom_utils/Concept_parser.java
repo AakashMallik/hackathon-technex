@@ -25,7 +25,7 @@ class FileSystemUtility {
 class ReverseMappingUtility {
 	private HashMap<String, ArrayList<String>> wordVsConceptHash = new HashMap<>();
 
-	ReverseMappingUtility() {
+	ReverseMappingUtility(ArrayList<String> fileList, String __PATH__) {
 		// generate the map once during initialization
 		String[] array_1 = { "book_concept", "create_concept" };
 		String[] array_2 = { "talk_concept" };
@@ -36,6 +36,26 @@ class ReverseMappingUtility {
 		wordVsConceptHash.put("place", new ArrayList<String>(Arrays.asList(array_3)));
 		wordVsConceptHash.put("phone", new ArrayList<String>(Arrays.asList(array_3)));
 		wordVsConceptHash.put("make", new ArrayList<String>(Arrays.asList(array_3)));
+
+		for (String file : fileList) {
+			// System.out.println(__PATH__ + "/" + file);
+			BufferedReader reader = new BufferedReader(new FileReader(__PATH__ + "/" + file));
+			String line = reader.readLine();
+			while (line != null) {
+				String first_word = line.split("\\s+")[0];
+				String concept = file.split("\\.")[0];
+
+				if (wordVsConceptHash.get(first_word) == null) {
+					wordVsConceptHash.put(first_word, new ArrayList<String>());
+					wordVsConceptHash.get(first_word).add(concept);
+				} else {
+					wordVsConceptHash.get(first_word).add(concept);
+				}
+			}
+			reader.close();
+		}
+
+		// System.out.println(wordVsConceptHash);
 	}
 
 	public ArrayList<String> findConceptList(String token) {
@@ -97,13 +117,22 @@ class ConceptTableUtility {
 public class Concept_parser {
 	public String generate_concept(String sentense) {
 
+		String __RESOUCSE_PATH__ = "/resources/";
+
 		// not working code
-		FileSystemUtility fileSystemUtility = new FileSystemUtility();
-		ArrayList<String> list = fileSystemUtility.generateFileList("/resources/Concept");
+		// FileSystemUtility fileSystemUtility = new FileSystemUtility();
+		// ArrayList<String> list = fileSystemUtility.generateFileList("/resources/Concept");
 		// 
 
+		// hardcoded files names (testing)
+		String[] list = { "book_concept.txt", "call_concept.txt", "create_concept.txt", "create_concept.txt",
+				"email_concept.txt", "message_concept.txt", "please_concept.txt", "talk_concept.txt",
+				"tell_concept.txt", "wake_concept.txt", "weather_concept.txt", "what_concept.txt" };
+		ArrayList<String> fileList = new ArrayList<>(Arrays.asList(list));
+
 		// get utility object for first word tagging
-		ReverseMappingUtility reverseMappingUtility = new ReverseMappingUtility();
+		ReverseMappingUtility reverseMappingUtility = new ReverseMappingUtility(fileList,
+				__RESOUCSE_PATH__ + "Concept");
 
 		// get utility object for subsequent word tagging
 		ConceptTableUtility conceptTableUtility = new ConceptTableUtility();
@@ -127,6 +156,7 @@ public class Concept_parser {
 
 				if (currentTokenConceptList == null) {
 					result.append("{" + prev_concept + "} ");
+					result.append(token + " ");
 				}
 			}
 		}
