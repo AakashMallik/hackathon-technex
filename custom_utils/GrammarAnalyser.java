@@ -1,6 +1,9 @@
 package custom_utils;
 
 import java.util.*;
+
+import custom_utils.LevenshteinDistance;
+
 import java.lang.*;
 import java.io.*;
 
@@ -103,6 +106,27 @@ public class GrammarAnalyser {
 			sentenseEncodedGrammar.put(grammar, this.grammarEncoder.encode(grammar, tokenArray));
 		}
 
-		System.out.println(sentenseEncodedGrammar);
+		// find optimum match
+		int globalMin = Integer.MAX_VALUE;
+		String globalMinFile = "";
+		for (String grammar : this.encodedGrammarList.keySet()) {
+			String token_code = sentenseEncodedGrammar.get(grammar);
+			int localMin = Integer.MAX_VALUE;
+			for (String code : this.encodedGrammarList.get(grammar)) {
+				int dist = LevenshteinDistance.find_distance(token_code, code);
+				if (localMin > dist) {
+					localMin = dist;
+				}
+			}
+
+			if (localMin < globalMin) {
+				globalMin = localMin;
+				globalMinFile = grammar;
+			}
+			localMin = Integer.MAX_VALUE;
+		}
+
+		// System.out.println(sentenseEncodedGrammar);
+		return globalMinFile;
 	}
 }
