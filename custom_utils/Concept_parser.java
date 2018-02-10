@@ -8,7 +8,6 @@ class FileSystemUtility {
 	public ArrayList<String> generateFileList(String path) {
 		ArrayList<String> files = new ArrayList<String>();
 		File folder = new File(path);
-		System.out.println(folder);
 		File[] listOfFiles = folder.listFiles();
 		if (listOfFiles != null) {
 			for (File file : listOfFiles) {
