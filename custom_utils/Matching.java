@@ -60,7 +60,7 @@ public class Matching {
        return replace(st,num_date,"<number>");
      }
 
-       return "NO MATCH";
+       return st;
    }
    void TestDay(){
     callme("jan"); callme("fgbgf january fgbfg"); callme("hfdhg 89789 feb dhf"); callme("2018 December 31st");
