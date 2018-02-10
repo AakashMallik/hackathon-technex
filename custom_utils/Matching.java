@@ -18,7 +18,7 @@ public class Matching {
    String date4 = num_year + "\\s+" + month + "\\s+" + num_date + "(th|rd|st|nd)?"; // date format 4 ( YEAR MONTH NUMBER)
    String date = "("+date1+"|"+date2+"|"+date3+"|"+date4+")"; // any one of the date formats date1, date2, date3, date4.
    String time =  "("+num_hour+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_hour+")?";
-
+   String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+"|"+num_date+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
   // pattern matching function to find if the given pattern contains in a string(sentence).
    private boolean matchMe(String pattern, String st){
     Pattern re = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
@@ -27,18 +27,15 @@ public class Matching {
     return b;
 }
   // matching for DateTime Placeholder
-   public boolean isDateTime(String st){
-    String DATE_TIME = "("+day+"|"+date+")?" +"\\s?"+ "("+num_hour+"|"+num_date+")?" +"\\s?"+ "([ap][\\.]?m)" +"\\s?"+ "("+num_date+"|"+num_hour+")?" +"\\s?" + "("+day+"|"+date+")?";
-    return matchMe(DATE_TIME,st);
-  }
+   public boolean isDateTime(String st){ return matchMe(".*"+DATE_TIME+".*",st); }
   // matching for day, today, tomorrow, sunday, mon etc.
-   public boolean isDay(String st){ return matchMe(day,st); }
+   public boolean isDay(String st){ return matchMe(".*"+day+".*",st); }
 
   // matching for any of the date format already given, date1,date2,date3,date4
-   public boolean isDate(String st){ return matchMe(date, st); }
+   public boolean isDate(String st){ return matchMe(".*"+date+".*", st); }
 
   // matching for <Number> whose range varies from 1-31
-   public boolean isNum(String st){ return matchMe(num_date, st); }
+   public boolean isNum(String st){ return matchMe(".*"+num_date+".*", st); }
 
    public boolean isTime(String st){ return matchMe(time,st); }
 
@@ -46,9 +43,24 @@ public class Matching {
     boolean result = isTime(st);
     System.out.println(st+" -> "+String.valueOf(result));
   }
+  String replace(String st,String pat, String placeHolder){
+    Pattern pattern = Pattern.compile(pat);
+    Matcher matcher = pattern.matcher(st);
+    st = matcher.replaceAll(" "+placeHolder+" ");
+    return st;
+  }
+   public String rPlaceHolder(String st){
+     if(isDateTime(st)){
+       return replace(st,DATE_TIME,"<dateTime>");
+     }else if(isDay(st)){
+       return replace(st,day,"<day>");
+     }else if(isDate(st)){
+       return replace(st,date,"<date>");
+     }else if(isNum(st)){
+       return replace(st,num_date,"<number>");
+     }
 
-   public void replaceConcept(){
-
+       return "NO MATCH";
    }
    void TestDay(){
     callme("jan"); callme("fgbgf january fgbfg"); callme("hfdhg 89789 feb dhf"); callme("2018 December 31st");
