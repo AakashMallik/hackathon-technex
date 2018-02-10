@@ -48,11 +48,10 @@ class ReverseMappingUtility {
 				}
 				reader.close();
 			} catch (Exception e) {
-				System.out.println("Error reported");
-			}
+				System.out.println("Error reported"+e);
 		}
 	}
-
+}
 	public ArrayList<String> findConceptList(String token) {
 		ArrayList<String> conceptList = this.wordVsConceptHash.get(token);
 		if (conceptList != null) {
@@ -124,7 +123,7 @@ public class Concept_parser {
 		// hardcoded files names (testing)
 		String[] list = { "book_concept.txt", "call_concept.txt", "create_concept.txt", "create_concept.txt",
 				"email_concept.txt", "message_concept.txt", "please_concept.txt", "talk_concept.txt",
-				"tell_concept.txt", "wake_concept.txt", "weather_concept.txt", "what_concept.txt" };
+				"tell_concept.txt", "wake_concept.txt", "weather_activity.txt", "what_concept.txt" };
 		ArrayList<String> fileList = new ArrayList<>(Arrays.asList(list));
 
 		// get utility object for first word tagging
