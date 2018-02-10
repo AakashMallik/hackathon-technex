@@ -5,7 +5,7 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-public class Matching {
+public class DateTimePlaceholder {
 
    String num_hour = "([0]?[1-9]|1[0-2])"; // 2 digit clock hour
    String num_date = "([0]?[1-9]|[1-2][0-9]|3[0-1])"; // date 1 to 31

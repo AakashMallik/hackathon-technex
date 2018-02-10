@@ -7,7 +7,7 @@ class Main {
 
 	public static String convertToGrammer(String st){
 		Preprocess pre = new Preprocess();
-		Matching ma = new Matching();
+		DateTimePlaceholder ma = new DateTimePlaceholder();
 		PlaceholderMatch pm = new PlaceholderMatch();
 		Concept_parser concept_parser = new Concept_parser();
 
@@ -42,18 +42,19 @@ class Main {
 		// } catch (Exception e) {
 		// 	System.out.println("Error reported" + e);
 		// }
-
 		try{
-		// GrammarWeight gw = new GrammarWeight(); // generates TF-IDF of every word.
-		
-		FileRead fr = new FileRead();
-
-		ArrayList<String> al = fr.readFileAlLine(new File("./resources/Testing/input.txt"));
-		for(String t: al)
-			System.out.println(t);
-		}catch(Exception e){
-			System.out.println(e);
-		}
+			GrammarWeight gw = new GrammarWeight(); 
+			HashMap<String, HashMap<String, Double>> tf = gw.getTF(); // generate TF of every word.
+			for(String ss: tf.keySet()){
+				System.out.println(ss);
+				for(String word : tf.get(ss).keySet()){
+					System.out.println(word+" "+String.valueOf(tf.get(ss).get(word)));
+					}
+				System.out.println();
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
 
 
 	}
