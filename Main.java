@@ -1,16 +1,11 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
-class Concept_matching {
-	public String generate_concept(String sentense) {
-		return sentense;
-	}
-}
+import custom_utils.*;
 
 class Main {
 	public static void main(String[] args) {
-		Concept_matching concept_matching = new Concept_matching();
-		System.out.println(concept_matching.generate_concept("Hello"));
+		Concept_parser Concept_parser = new Concept_parser();
+		System.out.println(Concept_parser.generate_concept("make a call or message him on sunday"));
 	}
 }
