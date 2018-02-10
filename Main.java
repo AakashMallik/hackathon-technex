@@ -45,10 +45,11 @@ class Main {
 		try{
 			GrammarWeight gw = new GrammarWeight(); 
 			HashMap<String, HashMap<String, Double>> tf = gw.getTF(); // generate TF of every word.
+			HashMap<String, HashMap<String, String>> charMap = gw.getSymbol();
 			for(String ss: tf.keySet()){
 				System.out.println(ss);
 				for(String word : tf.get(ss).keySet()){
-					System.out.println(word+" "+String.valueOf(tf.get(ss).get(word)));
+					System.out.println(word+" "+charMap.get(ss).get(word)+" "+String.valueOf(tf.get(ss).get(word)));
 					}
 				System.out.println();
 				}

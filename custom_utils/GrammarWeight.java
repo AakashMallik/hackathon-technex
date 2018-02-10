@@ -11,6 +11,7 @@ import custom_utils.FileRead.*;
 public class GrammarWeight {
   HashMap<String, HashMap<String, HashMap< String, Double >>> datadict = new HashMap<String, HashMap<String, HashMap< String, Double>>>();
   HashMap<String, HashMap<String, Double>> tf = new HashMap<String, HashMap<String, Double>>();
+  HashMap<String, HashMap<String, String>> symbol = new HashMap<String, HashMap<String, String>>();
   HashMap<String, Double> idf = new HashMap<String, Double>();
   ArrayList<String> fileList = new ArrayList<>();
 
@@ -22,7 +23,18 @@ public class GrammarWeight {
         map.put(w, n);
     }
     return map;
-  } 
+  }
+  HashMap<String,String> calculateSymbol(ArrayList<String> words){
+    Set<String> unqWords= new HashSet<String>(words);
+    HashMap<String, String> sym = new HashMap<>();
+    int count = new Integer(65);
+    for (String w : unqWords){
+        sym.put(w,String.valueOf(Character.toChars(count)));
+        count++;
+      }
+    return sym;
+  }
+
   
   void calculateIDF(ArrayList<String> al){
     Set<String> wordSet = new HashSet<String>(al);
@@ -55,8 +67,13 @@ public class GrammarWeight {
 		for(String key: idf.keySet()){
       Double x = -Math.log(idf.get(key)/new Double(fileList.size()));
 			idf.put(key,x);
-		}
-
+    }
+    
+    // generate unique symbol for each word of every document
+    for(String key: fileList){
+      ArrayList<String> al = fr.readFileAsWord(new File(DIR+"Grammar/"+key));
+      symbol.put(key.split("\\.")[0], calculateSymbol(al));
+    }
    }
 
 
@@ -66,5 +83,8 @@ public class GrammarWeight {
   public HashMap<String, Double> getIDF(){
     return idf;
   }
+  public HashMap<String, HashMap<String, String>> getSymbol(){
+    return symbol;
+  } 
 
 }
