@@ -49,7 +49,7 @@ class Main {
 			for(String ss: tf.keySet()){
 				System.out.println(ss);
 				for(String word : tf.get(ss).keySet()){
-					System.out.println(word+" "+charMap.get(ss).get(word)+" "+String.valueOf(tf.get(ss).get(word)));
+					// System.out.println(word+" "+charMap.get(ss).get(word)+" "+String.valueOf(tf.get(ss).get(word)));
 					}
 				System.out.println();
 				}

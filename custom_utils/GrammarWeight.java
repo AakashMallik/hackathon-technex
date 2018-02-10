@@ -6,8 +6,6 @@ import java.math.*;
 import java.util.regex.*;
 import custom_utils.FileRead.*;
 
-
-
 public class GrammarWeight {
   HashMap<String, HashMap<String, HashMap< String, Double >>> datadict = new HashMap<String, HashMap<String, HashMap< String, Double>>>();
   HashMap<String, HashMap<String, Double>> tf = new HashMap<String, HashMap<String, Double>>();
@@ -39,7 +37,6 @@ public class GrammarWeight {
       }
     return sym;
   }
-
   
   void calculateIDF(ArrayList<String> al){
     Set<String> wordSet = new HashSet<String>(al);
@@ -69,8 +66,17 @@ public class GrammarWeight {
       calculateIDF(al);
     }
     // log(N/count)
+    DateTimePlaceholder dt = new DateTimePlaceholder();
 		for(String key: idf.keySet()){
-      Double x = -Math.log(idf.get(key)/new Double(fileList.size()));
+      String pattern = ".*\\{\\w+\\}|\\<\\w+\\>.*"; 
+      Double x = new Double(0);
+      if(dt.isPattern(pattern,key)){
+        // System.out.println(key);
+        x =10000 -Math.log(idf.get(key)/new Double(fileList.size()));
+      }else{
+        x =-Math.log(idf.get(key)/new Double(fileList.size()));
+      }
+      x = -Math.log(idf.get(key)/new Double(fileList.size()));
 			idf.put(key,x);
     }
     

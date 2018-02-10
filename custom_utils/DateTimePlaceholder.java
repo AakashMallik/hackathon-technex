@@ -26,6 +26,10 @@ public class DateTimePlaceholder {
     boolean b = m.lookingAt();
     return b;
 }
+  // matching for any pattern
+  public boolean isPattern(String pattern, String st){
+    return matchMe(pattern, st);
+  } 
   // matching for DateTime Placeholder
    public boolean isDateTime(String st){ return matchMe(".*"+DATE_TIME+".*",st); }
   // matching for day, today, tomorrow, sunday, mon etc.
