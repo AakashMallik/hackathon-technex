@@ -11,11 +11,11 @@ class Main {
 	// }catch(Exception e){
 	// 	System.out.println(e);
 	// }
-		// Concept_parser Concept_parser = new Concept_parser();
-		// System.out.println(Concept_parser.generate_concept("make a call or message him on sunday"));
-		Matching mm = new Matching();
-		mm.test();
-		mm.isDateTime("dfbd dfh");
+		Concept_parser Concept_parser = new Concept_parser();
+		System.out.println(Concept_parser.generate_concept("Can you tell me when will it rain in Bangalore after 6 a.m. tomorrow"));
+		// Matching mm = new Matching();
+		// mm.test();
+		// mm.isDateTime("dfbd dfh");
 
 	}
 }
