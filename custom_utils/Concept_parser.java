@@ -39,7 +39,7 @@ class ReverseMappingUtility {
 		System.out.println(__PATH__);
 		for (String f : fileList) {
 			// System.out.println(__PATH__ + "/" + file);
-			File file = new File("../resources/Concept/"+f);
+			File file = new File("./resources/Concept/"+f);
 			try{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line = reader.readLine();
@@ -57,7 +57,7 @@ class ReverseMappingUtility {
 			}
 			reader.close();
 		}catch(Exception e){
-			System.out.println("Error reported");
+			System.out.println("Error reported"+e);
 			}
 
 
