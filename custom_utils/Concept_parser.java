@@ -120,7 +120,6 @@ public class Concept_parser {
 		// not working code
 		// FileSystemUtility fileSystemUtility = new FileSystemUtility();
 		// ArrayList<String> list = fileSystemUtility.generateFileList("/resources/Concept");
-		//
 
 		// hardcoded files names (testing)
 		String[] list = { "book_concept.txt", "call_concept.txt", "create_concept.txt", "create_concept.txt",
