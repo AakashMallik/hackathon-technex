@@ -1,12 +1,13 @@
 import java.util.*;
 import java.lang.*;
 import java.io.*;
+import custom_utils.*;
 
-class Concept_matching {
-	public String generate_concept(String sentense) {
-		return sentense;
-	}
-}
+// class Concept_matching {
+// 	public String generate_concept(String sentense) {
+// 		return sentense;
+// 	}
+// }
 
 class Main {
 	public static void main(String[] args) {
