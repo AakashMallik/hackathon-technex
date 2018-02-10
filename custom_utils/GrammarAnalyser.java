@@ -22,28 +22,35 @@ class FileSystemUtility {
 
 class GrammarEncoder {
 	HashMap<String, HashMap<String, Double>> grammarWeightList_tf;
-	HashMap<String, HashMap<String, Char>> grammarSymbolList_tf;
+	HashMap<String, HashMap<String, String>> grammarSymbolList_tf;
 	HashMap<String, Double> grammarWeightList_idf;
 
 	GrammarEncoder() {
-		// use utsav's code to get weightList
+		try {
+			GrammarWeight gw = new GrammarWeight();
+			this.grammarWeightList_tf = gw.getTF();
+			this.grammarSymbolList_tf = gw.getSymbol();
+			this.grammarWeightList_idf = gw.getIDF();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	public String encode(String grammar, String[] tokenArray) {
 		StringBuilder code = new StringBuilder();
 		for (String token : tokenArray) {
 			if (grammarWeightList_tf.get(grammar).get(token) != null) {
-				Double wight = grammarWeightList_tf.get(grammar).get(token);
+				Double tf = grammarWeightList_tf.get(grammar).get(token);
 				Double idf = grammarWeightList_idf.get(token);
-				Char symbol = grammarSymbolList_tf.get(grammar).get(token);
+				String symbol = grammarSymbolList_tf.get(grammar).get(token);
 
-				for (int i = 0; i < Math.ceil(wight * idf); i++) {
+				for (int i = 0; i < Math.ceil(tf * idf); i++) {
 					code.append(symbol);
 				}
 			}
 		}
 
-		return code;
+		return code.toString();
 	}
 }
 
@@ -57,7 +64,7 @@ public class GrammarAnalyser {
 	public GrammarAnalyser() {
 		// list all files in concept folder
 		this.fileList = fileSystemUtility.generateFileList(__RESOUCSE_PATH__ + "Grammar");
-		this.EncodedGrammarList = new HashMap<>();
+		this.encodedGrammarList = new HashMap<>();
 
 		// initializing the encoder object
 		this.grammarEncoder = new GrammarEncoder();
@@ -68,7 +75,7 @@ public class GrammarAnalyser {
 
 			ArrayList<String> tempList = new ArrayList<>();
 
-			File fileOject = new File(__PATH__ + "/" + file);
+			File fileOject = new File(__RESOUCSE_PATH__ + "Grammar/" + file);
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
 				String line = reader.readLine();
@@ -95,5 +102,7 @@ public class GrammarAnalyser {
 			String grammar = file.split("\\.")[0];
 			sentenseEncodedGrammar.put(grammar, this.grammarEncoder.encode(grammar, tokenArray));
 		}
+
+		System.out.println(sentenseEncodedGrammar);
 	}
 }
