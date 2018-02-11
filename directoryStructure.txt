@@ -1,8 +1,8 @@
 .
 ├── custom_utils/
 │   ├── Concept_parser.java                 
-│   ├── DateTimePlaceholder.java	        Regex patterns to match dateTime, day, time, and replace it with placeholder. 
-│   ├── FileRead.java			            A class which fascilitates file read and write functions.
+│   ├── DateTimePlaceholder.java	          Regex patterns to match dateTime, day, time, and replace it with placeholder. 
+│   ├── FileRead.java			                  A class which fascilitates file read and write functions.
 │   ├── GrammarAnalyser.java
 │   ├── GrammarWeight.java                  Calculates TF-IDF of every word of every grammar file.
 │   ├── LevenshteinDistance.java            Used to compare similrity between two strings.
