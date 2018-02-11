@@ -25,22 +25,18 @@ class samsungtest {
 	public static void main(String[] args) {
 
 		// test script
-		File fileOject = new File("./resources/Testing/input.txt");
+		FileRead fileread = new FileRead();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(fileOject));
-			String line = reader.readLine();
+			
+			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
 
-			while (line != null) {
-				if (line.subSequence(0, 4).equals("Case")) {
+			for(String line : sentences) {
+				if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
 					System.out.println(line);
-					line = reader.readLine();
 					continue;
 				}
 				System.out.println(convertToGrammer(line));
-				// System.out.println();
-				line = reader.readLine();
 			}
-			reader.close();
 		} catch (Exception e) {
 			System.out.println("Error reported" + e);
 		}
