@@ -10,10 +10,19 @@ import java.util.regex.*;
 import custom_utils.FileRead.*;
 
 public class GrammarWeight {
-  
-  Double idfConceptFact = new Double(1);
-  Double idfNonConceptFact = new Double(0.01);
+  void Parameters(){
+    idfConceptFact = new Double(100);
+    idfFreeWords = new Double(1);
 
+    tfConceptFact = new Double(10);
+    tfFreeWords = new Double(1);
+
+  }
+  
+  Double idfConceptFact = new Double(100);
+  Double idfFreeWords = new Double(1);
+  Double tfConceptFact = new Double(10);
+  Double tfFreeWords = new Double(1);
   HashMap<String, HashMap<String, HashMap<String, Double>>> datadict = new HashMap<String, HashMap<String, HashMap<String, Double>>>();
   HashMap<String, HashMap<String, Double>> tf = new HashMap<String, HashMap<String, Double>>();
   HashMap<String, HashMap<String, String>> symbol = new HashMap<String, HashMap<String, String>>();
@@ -27,8 +36,16 @@ public class GrammarWeight {
       n = (n == null) ? new Double(1) : ++n;
       map.put(w.toLowerCase(), n);
     }
+    DateTimePlaceholder dt = new DateTimePlaceholder();
     for (String w : words) {
+
       Double n = map.get(w) / new Double(words.size());
+      String pattern = ".*\\{\\w+\\}|\\<\\w+\\>.*";
+      if(dt.isPattern(pattern, w)){ 
+        n *= tfConceptFact;
+      }else{
+        n *= tfFreeWords;
+      }
       map.put(w, n);
     }
     return map;
@@ -55,6 +72,7 @@ public class GrammarWeight {
   }
 
   public GrammarWeight() throws Exception {
+    Parameters();
     // System.out.println("Grammar Constructor");
     String DIR = "./resources/";
     // File file = new File("./resources/Concept/what_concept.txt");
@@ -84,7 +102,7 @@ public class GrammarWeight {
         x *= idfConceptFact;
       } else {
         x = -Math.log(idf.get(key) / new Double(fileList.size()));
-        x *= idfNonConceptFact;
+        x *= idfFreeWords;
         // x = new Double(0.00000001);
       }
       // x = -Math.log(idf.get(key) / new Double(fileList.size()));
