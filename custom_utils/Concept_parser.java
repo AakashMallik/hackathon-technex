@@ -8,16 +8,13 @@ import custom_utils.*;
 // dummy
 class ReverseMappingUtility {
 	private HashMap<String, ArrayList<String>> wordVsConceptHash = new HashMap<>();
-	private FileRead fileReader = new FileRead();
+	FileRead filereader = new FileRead();
 
 	ReverseMappingUtility(ArrayList<String> fileList, String __PATH__) {
 		for (String file : fileList) {
-			File fileOject = new File(__PATH__ + "/" + file);
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
-				String line = reader.readLine();
 
-				while (line != null) {
+				for (String line : filereader.readFileAsLine(new File(__PATH__ + "/" + file))) {
 					String first_word = line.split("\\s+")[0];
 					String concept = file.split("\\.")[0];
 
@@ -29,9 +26,7 @@ class ReverseMappingUtility {
 							wordVsConceptHash.get(first_word).add(concept);
 						}
 					}
-					line = reader.readLine();
 				}
-				reader.close();
 			} catch (Exception e) {
 				System.out.println("Error reported" + e);
 			}
@@ -65,7 +60,7 @@ class ReverseMappingUtility {
 // dummy
 class ConceptTableUtility {
 	private HashMap<String, HashMap<String, Boolean>> wordVsConceptTable = new HashMap<>();
-	private FileRead fileReader = new FileRead();
+	private FileRead filereader = new FileRead();
 
 	ConceptTableUtility(ArrayList<String> fileList, String __PATH__) {
 		for (String file : fileList) {
@@ -73,21 +68,15 @@ class ConceptTableUtility {
 			String concept = file.split("\\.")[0];
 			wordVsConceptTable.put(concept, inner_map);
 
-			File fileOject = new File(__PATH__ + "/" + file);
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
-				String line = reader.readLine();
-
-				while (line != null) {
+				for (String line : filereader.readFileAsLine(new File(__PATH__ + "/" + file))) {
 					String[] wordList = line.split("\\s+");
 					for (String word : wordList) {
 						if (!inner_map.containsKey(word)) {
 							inner_map.put(word, true);
 						}
 					}
-					line = reader.readLine();
 				}
-				reader.close();
 			} catch (Exception e) {
 				System.out.println("Error reported");
 			}
@@ -126,12 +115,11 @@ public class Concept_parser {
 	private ArrayList<String> fileList;
 	private ReverseMappingUtility reverseMappingUtility;
 	private ConceptTableUtility conceptTableUtility;
-	private FileRead fileReader;
+	public FileRead filereader = new FileRead();
 
 	public Concept_parser() {
 		// list all files in concept folder
-		this.fileReader = new FileRead();
-		this.fileList = this.fileReader.getFileList(new File(__RESOUCSE_PATH__ + "Concept"));
+		this.fileList = filereader.getFileList(new File(__RESOUCSE_PATH__ + "Concept"));
 
 		// get utility object for first word tagging
 		this.reverseMappingUtility = new ReverseMappingUtility(fileList, __RESOUCSE_PATH__ + "Concept");

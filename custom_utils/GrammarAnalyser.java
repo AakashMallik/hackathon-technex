@@ -61,14 +61,16 @@ class GrammarEncoder {
 
 public class GrammarAnalyser {
 	private String __RESOUCSE_PATH__ = "./resources/";
-	private FileSystemUtility fileSystemUtility = new FileSystemUtility();
+	// private FileSystemUtility fileSystemUtility = new FileSystemUtility();
 	private ArrayList<String> fileList;
 	HashMap<String, ArrayList<String>> encodedGrammarList;
 	GrammarEncoder grammarEncoder;
 
 	public GrammarAnalyser() {
 		// list all files in concept folder
-		this.fileList = fileSystemUtility.generateFileList(__RESOUCSE_PATH__ + "Grammar");
+		FileRead fr = new FileRead();
+
+		this.fileList = fr.getFileList(new File(__RESOUCSE_PATH__ + "Grammar"));
 		this.encodedGrammarList = new HashMap<>();
 
 		// initializing the encoder object
@@ -79,17 +81,12 @@ public class GrammarAnalyser {
 			String grammar = file.split("\\.")[0];
 
 			ArrayList<String> tempList = new ArrayList<>();
-
-			File fileOject = new File(__RESOUCSE_PATH__ + "Grammar/" + file);
 			try {
-				BufferedReader reader = new BufferedReader(new FileReader(fileOject));
-				String line = reader.readLine();
-				while (line != null) {
+
+				for (String line : fr.readFileAsLine(new File(__RESOUCSE_PATH__ + "Grammar/" + file))) {
 					String[] tokenArray = line.split("\\s+");
 					tempList.add(this.grammarEncoder.encode(grammar, tokenArray));
-					line = reader.readLine();
 				}
-				reader.close();
 			} catch (Exception e) {
 				System.out.println("Error reported" + e);
 			}
