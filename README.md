@@ -4,6 +4,8 @@
 
 # Rule Based NLU – Pattern Matching Algorithm
 
+NOTE: All data files which were initially provided are kept in ./resources/ directory. The final output.txt is present at ./resources/Testing/ directory.
+
 ## Assumptions/Edits in initial resources
 
 The given data had some errors. We modified the given data at some places:
