@@ -24,7 +24,3 @@ Case#12
 Can you please book a cab for me
 Case#13
 Generate a ticket for me now
-Case#14
-Can you check for an event in the Bangalore now
-Case#15
-did it rain in Japan at 9 a.m.

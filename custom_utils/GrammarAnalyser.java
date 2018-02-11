@@ -43,10 +43,10 @@ class GrammarEncoder {
 	public String encode(String grammar, String[] tokenArray) {
 		StringBuilder code = new StringBuilder();
 		for (String token : tokenArray) {
-			if (grammarWeightList_tf.get(grammar).get(token) != null) {
-				Double tf = grammarWeightList_tf.get(grammar).get(token);
-				Double idf = grammarWeightList_idf.get(token);
-				String symbol = grammarSymbolList_tf.get(grammar).get(token);
+			if (grammarWeightList_tf.get(grammar).get(token.toLowerCase()) != null) {
+				Double tf = grammarWeightList_tf.get(grammar).get(token.toLowerCase());
+				Double idf = grammarWeightList_idf.get(token.toLowerCase());
+				String symbol = grammarSymbolList_tf.get(grammar).get(token.toLowerCase());
 				// if(symbol.charAt(0) == 'F')
 				// System.out.println(token);
 				for (int i = 0; i < Math.ceil(1 * tf * idf); i++) {
