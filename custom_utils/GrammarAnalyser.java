@@ -3,6 +3,7 @@ package custom_utils;
 import java.util.*;
 
 import custom_utils.LevenshteinDistance;
+import custom_utils.PlaceholderMatch;
 
 import java.lang.*;
 import java.io.*;
@@ -46,7 +47,8 @@ class GrammarEncoder {
 				Double tf = grammarWeightList_tf.get(grammar).get(token);
 				Double idf = grammarWeightList_idf.get(token);
 				String symbol = grammarSymbolList_tf.get(grammar).get(token);
-
+				// if(symbol.charAt(0) == 'F')
+					// System.out.println(token);
 				for (int i = 0; i < Math.ceil(tf * idf); i++) {
 					code.append(symbol);
 				}
@@ -106,27 +108,35 @@ public class GrammarAnalyser {
 			sentenseEncodedGrammar.put(grammar, this.grammarEncoder.encode(grammar, tokenArray));
 		}
 
-		// find optimum match
-		int globalMin = Integer.MAX_VALUE;
-		String globalMinFile = "";
+		//find optimum match
+		double globalMax = -1000.0;
+		String globalMaxFile = "";
 		for (String grammar : this.encodedGrammarList.keySet()) {
 			String token_code = sentenseEncodedGrammar.get(grammar);
-			int localMin = Integer.MAX_VALUE;
+			double localMax = -1000.0;
 			for (String code : this.encodedGrammarList.get(grammar)) {
-				int dist = LevenshteinDistance.find_distance(token_code, code);
-				if (localMin > dist) {
-					localMin = dist;
+				double dist = PlaceholderMatch.jaro_winkler_dist(token_code, code, false);
+				dist = dist * token_code.length();
+
+				// System.out.println(token_code);
+				// System.out.println(code);
+
+				// System.out.println(grammar);
+				// System.out.println(dist);
+
+				if (localMax < dist) {
+					localMax = dist;
 				}
 			}
 
-			if (localMin < globalMin) {
-				globalMin = localMin;
-				globalMinFile = grammar;
+			if (localMax > globalMax) {
+				globalMax = localMax;
+				globalMaxFile = grammar;
 			}
-			localMin = Integer.MAX_VALUE;
+			localMax = -1000.0;
 		}
 
 		// System.out.println(sentenseEncodedGrammar);
-		return globalMinFile;
+		return globalMaxFile;
 	}
 }

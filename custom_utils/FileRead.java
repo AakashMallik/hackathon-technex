@@ -22,6 +22,7 @@ public class FileRead {
      String st;
      ArrayList<String> al=new ArrayList<String>();
      while ((st = br.readLine()) != null){
+       st = st.toLowerCase();
        al.add(st);
      }
       br.close();
@@ -33,6 +34,7 @@ public class FileRead {
      String st;
      ArrayList<String> al=new ArrayList<String>();
      while ((st = br.readLine()) != null){
+       st = st.toLowerCase();
       ArrayList<String> words = convertToArrayList(st.split(" "));
       al.addAll(words);
      }
