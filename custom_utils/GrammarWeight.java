@@ -11,10 +11,10 @@ import custom_utils.FileRead.*;
 public class GrammarWeight {
   void Parameters() {
     idfConceptFact = new Double(100);
-    idfFreeWords = new Double(10);
+    idfFreeWords = new Double(1);
 
-    tfConceptFact = new Double(100);
-    tfFreeWords = new Double(10);
+    tfConceptFact = new Double(10);
+    tfFreeWords = new Double(1);
 
   }
 

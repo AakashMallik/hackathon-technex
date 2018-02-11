@@ -18,6 +18,7 @@ class Main {
 		st = ma.find_dateTime(st);
 		st = pm.find_placeholder(st);
 		st = pre.rExtraSpaces(st);
+		// System.out.println("Conv: " + st);
 		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
