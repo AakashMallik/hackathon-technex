@@ -18,7 +18,7 @@ class Main {
 		st = ma.find_dateTime(st);
 		st = pm.find_placeholder(st);
 		st = pre.rExtraSpaces(st);
-		// System.out.println("Conv: " + st);
+		System.out.println("Conv: " + st);
 		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
@@ -46,28 +46,28 @@ class Main {
 			System.out.println("Error reported" + e);
 		}
 
-		// try {
-		// 	GrammarWeight gw = new GrammarWeight();
-		// 	HashMap<String, Double> idf = gw.getIDF(); // generates IDF of everyword.
-		// 	for (String ss : idf.keySet())
-		// 		System.out.println(ss + " " + String.valueOf(idf.get(ss)));
-		// } catch (Exception e) {
-		// 	System.out.println(e);
-		// }
-		// try{
-		// 	GrammarWeight gw = new GrammarWeight(); 
-		// 	HashMap<String, HashMap<String, Double>> tf = gw.getTF(); // generate TF of every word.
-		// 	HashMap<String, HashMap<String, String>> charMap = gw.getSymbol();
-		// 	for(String ss: tf.keySet()){
-		// 		System.out.println(ss);
-		// 		for(String word : tf.get(ss).keySet()){
-		// 			System.out.println(word+" "+charMap.get(ss).get(word)+" "+String.valueOf(tf.get(ss).get(word)));
-		// 			}
-		// 		System.out.println();
-		// 		}
-		// 	}catch(Exception e){
-		// 		System.out.println(e);
-		// 	}
-		// System.out.println(convertToGrammer("Can you book a flight ticket on 14 February from Bangalore to Varanasi"));
+		try {
+			GrammarWeight gw = new GrammarWeight();
+			HashMap<String, Double> idf = gw.getIDF(); // generates IDF of everyword.
+			for (String ss : idf.keySet())
+				System.out.println(ss + " " + String.valueOf(idf.get(ss)));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		try{
+			GrammarWeight gw = new GrammarWeight();
+			HashMap<String, HashMap<String, Double>> tf = gw.getTF(); // generate TF of every word.
+			HashMap<String, HashMap<String, String>> charMap = gw.getSymbol();
+			for(String ss: tf.keySet()){
+				System.out.println(ss);
+				for(String word : tf.get(ss).keySet()){
+					System.out.println(word+" "+charMap.get(ss).get(word)+" "+String.valueOf(tf.get(ss).get(word)));
+					}
+				System.out.println();
+				}
+			}catch(Exception e){
+				System.out.println(e);
+			}
+		System.out.println(convertToGrammer("Can you book a flight ticket on 14 February from Bangalore to Varanasi"));
 	}
 }

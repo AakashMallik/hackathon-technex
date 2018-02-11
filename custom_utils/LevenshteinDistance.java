@@ -6,6 +6,7 @@ import java.lang.*;
 
 public class LevenshteinDistance{
 	public static int find_distance(String a, String b){
+		System.out.println(a+" "+b);
 		// Note: higher the distance, more dissimilar the strings are
 		int[][] dp = new int[a.length() + 1][b.length() + 1];
 		int subs_cost;
@@ -30,5 +31,5 @@ public class LevenshteinDistance{
 
 		return dp[a.length()][b.length()];
 	}
-	
+
 }
