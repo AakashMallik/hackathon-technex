@@ -153,12 +153,13 @@ public class Concept_parser {
 					result.append(token + " ");
 				}
 			} else {
-				ArrayList<String> prev_concept = currentTokenConceptList;
+				String prev_concept = currentTokenConceptList.get(0);
 				currentTokenConceptList = this.conceptTableUtility.findConceptList(currentTokenConceptList, token);
 				if (currentTokenConceptList == null) {
-					for (String concept : prev_concept) {
-						result.append("{" + concept + "} ");
-					}
+					result.append("{" + prev_concept + "} ");
+					// for (String concept : prev_concept) {
+					// 	result.append("{" + concept + "} ");
+					// }
 
 					currentTokenConceptList = this.reverseMappingUtility.findConceptList(token);
 					if (currentTokenConceptList == null) {

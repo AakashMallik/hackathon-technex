@@ -49,7 +49,7 @@ class GrammarEncoder {
 				String symbol = grammarSymbolList_tf.get(grammar).get(token);
 				// if(symbol.charAt(0) == 'F')
 				// System.out.println(token);
-				for (int i = 0; i < Math.ceil(10 * tf * idf); i++) {
+				for (int i = 0; i < Math.ceil(1 * tf * idf); i++) {
 					code.append(symbol);
 				}
 			}
