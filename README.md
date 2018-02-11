@@ -5,7 +5,7 @@
 DateTimePlaceholderDat mm = new DateTimePlaceholder();
 String st = ma.find_dateTime("9th February");
 ```
-* To Change IDF {\*},<\*> weights factor modify below lines of GrammarWeight.java
+* To Change IDF-TF {\*},<\*> weights factor modify below lines of GrammarWeight.java
 ```
 12. public class GrammarWeight {
 13. void Parameters(){
