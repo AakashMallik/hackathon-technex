@@ -6,19 +6,18 @@ import java.text.*;
 import java.math.*;
 import java.util.regex.*;
 
-
 import custom_utils.FileRead.*;
 
 public class GrammarWeight {
-  void Parameters(){
+  void Parameters() {
     idfConceptFact = new Double(100);
-    idfFreeWords = new Double(1);
+    idfFreeWords = new Double(10);
 
-    tfConceptFact = new Double(10);
-    tfFreeWords = new Double(1);
+    tfConceptFact = new Double(100);
+    tfFreeWords = new Double(10);
 
   }
-  
+
   Double idfConceptFact = new Double(100);
   Double idfFreeWords = new Double(1);
   Double tfConceptFact = new Double(10);
@@ -41,9 +40,9 @@ public class GrammarWeight {
 
       Double n = map.get(w) / new Double(words.size());
       String pattern = ".*\\{\\w+\\}|\\<\\w+\\>.*";
-      if(dt.isPattern(pattern, w)){ 
+      if (dt.isPattern(pattern, w)) {
         n *= tfConceptFact;
-      }else{
+      } else {
         n *= tfFreeWords;
       }
       map.put(w, n);

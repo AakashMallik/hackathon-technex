@@ -48,8 +48,8 @@ class GrammarEncoder {
 				Double idf = grammarWeightList_idf.get(token);
 				String symbol = grammarSymbolList_tf.get(grammar).get(token);
 				// if(symbol.charAt(0) == 'F')
-					// System.out.println(token);
-				for (int i = 0; i < Math.ceil(tf * idf); i++) {
+				// System.out.println(token);
+				for (int i = 0; i < Math.ceil(10 * tf * idf); i++) {
 					code.append(symbol);
 				}
 			}
