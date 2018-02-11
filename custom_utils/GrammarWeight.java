@@ -76,8 +76,8 @@ public class GrammarWeight {
         // System.out.println(key);
         x = -Math.log(idf.get(key) / new Double(fileList.size()));
       } else {
-        // x = -Math.log(idf.get(key) / new Double(fileList.size()));
-        x = new Double(0);
+        x = -Math.log(idf.get(key) / new Double(fileList.size()));
+        // x = new Double(0);
       }
       // x = -Math.log(idf.get(key) / new Double(fileList.size()));
       idf.put(key, x);

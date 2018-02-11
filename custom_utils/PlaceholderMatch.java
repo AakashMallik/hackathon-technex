@@ -73,7 +73,11 @@ public class PlaceholderMatch {
 		return;
 	}
 
-	public double jaro_winkler_dist(String a, String b) {
+	public static double jaro_winkler_dist(String a, String b){
+		return jaro_winkler_dist(a, b, true);
+	}
+
+	public static double jaro_winkler_dist(String a, String b, boolean winkler) {
 		if (a.equals(b)) {
 			return 1.0;
 		}
@@ -119,13 +123,15 @@ public class PlaceholderMatch {
 		if (matches == 0)
 			return 0; // No need to progress ahead
 		transpositions = (int) (transpositions / 2.0);
-
+		
 		double jaro_score = (1.0 / 3) * (matches / (double) longer.length() + matches / (double) shorter.length()
 				+ (matches - transpositions) / (double) matches);
+		if(!winkler)
+			return jaro_score;
 
 		double score = jaro_score + prefix_match * 0.1 * (1.0 - jaro_score);
 		// standard p value = 0.1 (consult wikipedia)
-		return jaro_score; // higher score == more simialarity
+		return score; // higher score == more simialarity
 	}
 
 	public String find_placeholder(String s) {
