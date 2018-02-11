@@ -1,0 +1,48 @@
+.
+├── custom_utils/
+│   ├── Concept_parser.java                 
+│   ├── DateTimePlaceholder.java	        Regex patterns to match dateTime, day, time, and replace it with placeholder. 
+│   ├── FileRead.java			            A class which fascilitates file read and write functions.
+│   ├── GrammarAnalyser.java
+│   ├── GrammarWeight.java                  Calculates TF-IDF of every word of every grammar file.
+│   ├── LevenshteinDistance.java            Used to compare similrity between two strings.
+│   ├── PlaceholderMatch.java               
+│   ├── Preprocess.java                     Fascilitates preprocessing of texts like Non-Alphanumeric char removal incl extra spaces.
+├── directoryStructure.txt                  This very file which you are reading :)
+├── README.md                               
+├── readme.txt                              Detail about the project solution and approach.
+├── resources/                              Contains files which were already provided as problem statements resources
+│   ├── Concept
+│   │   ├── book_concept.txt
+│   │   ├── call_concept.txt
+│   │   ├── create_concept.txt
+│   │   ├── email_concept.txt
+│   │   ├── message_concept.txt
+│   │   ├── please_concept.txt
+│   │   ├── talk_concept.txt
+│   │   ├── tell_concept.txt
+│   │   ├── wake_concept.txt
+│   │   ├── weather_activity.txt
+│   │   └── what_concept.txt
+│   ├── Grammar/
+│   │   ├── BookTicket.txt
+│   │   ├── CallByName.txt
+│   │   ├── CreateAlarmWithTime.txt
+│   │   ├── CreateEventWithTimeAndPlace.txt
+│   │   ├── CreateEventWithTime.txt
+│   │   ├── DateTimeInPlace.txt
+│   │   ├── DateTimeNow.txt
+│   │   ├── SendEmail.txt
+│   │   ├── WeatherInCity.txt
+│   │   └── WeatherTimeCity.txt
+│   ├── PlaceHolder/
+│   │   ├── contact_name.txt
+│   │   ├── PlaceHolderDetail.txt
+│   │   └── places.txt
+│   ├── Problem.docx                        
+│   └── Testing/
+│       ├── input.txt                       This is where the input is provided by the user Case#<NUMBER> wise.                       
+│       └── output.txt                      The result(output) of input file is stored here after each execution of samsungtest.class(Main file).
+|
+├── samsungtest.java                        Main Class file, which is compiled and executed.
+

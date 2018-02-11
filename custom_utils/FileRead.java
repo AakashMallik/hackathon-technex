@@ -17,7 +17,16 @@ public class FileRead {
   public ArrayList<String> getFileList(File file) {
     return convertToArrayList(file.list());
   }
-
+  public void writeOutput(){
+    try{
+    PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
+    writer.println("The first line");
+    writer.println("The second line");
+    writer.close();
+    } catch(Exception e){
+      System.out.println("Error Reported: "+e);
+    }
+  }
   public ArrayList<String> readFileAsLine(File file) throws Exception {
     BufferedReader br = new BufferedReader(new FileReader(file));
     String st;
