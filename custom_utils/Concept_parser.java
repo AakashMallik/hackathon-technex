@@ -5,7 +5,6 @@ import java.lang.*;
 import java.io.*;
 import custom_utils.*;
 
-// dummy
 class ReverseMappingUtility {
 	private HashMap<String, ArrayList<String>> wordVsConceptHash = new HashMap<>();
 	FileRead filereader = new FileRead();
@@ -30,20 +29,6 @@ class ReverseMappingUtility {
 			} catch (Exception e) {
 				System.out.println("Error reported" + e);
 			}
-			// ArrayList<String> lines = fileReader.getFileList(new File(__PATH__ + "/" + file));
-			// for (String line : lines) {
-			// 	String first_word = line.split("\\s+")[0];
-			// 	String concept = file.split("\\.")[0];
-
-			// 	if (wordVsConceptHash.get(first_word) == null) {
-			// 		wordVsConceptHash.put(first_word, new ArrayList<String>());
-			// 		wordVsConceptHash.get(first_word).add(concept);
-			// 	} else {
-			// 		if (!wordVsConceptHash.get(first_word).contains(concept)) {
-			// 			wordVsConceptHash.get(first_word).add(concept);
-			// 		}
-			// 	}
-			// }
 		}
 	}
 
@@ -57,7 +42,6 @@ class ReverseMappingUtility {
 	}
 }
 
-// dummy
 class ConceptTableUtility {
 	private HashMap<String, HashMap<String, Boolean>> wordVsConceptTable = new HashMap<>();
 	private FileRead filereader = new FileRead();
@@ -80,15 +64,6 @@ class ConceptTableUtility {
 			} catch (Exception e) {
 				System.out.println("Error reported");
 			}
-			// ArrayList<String> lines = fileReader.getFileList(new File(__PATH__ + "/" + file));
-			// for (String line : lines) {
-			// 	String[] wordList = line.split("\\s+");
-			// 	for (String word : wordList) {
-			// 		if (!inner_map.containsKey(word)) {
-			// 			inner_map.put(word, true);
-			// 		}
-			// 	}
-			// }
 		}
 	}
 
