@@ -3,26 +3,12 @@ package custom_utils;
 import java.util.*;
 import java.lang.*;
 import java.io.*;
-
-class FileSystemUtility {
-	public ArrayList<String> generateFileList(String path) {
-		ArrayList<String> files = new ArrayList<String>();
-		File folder = new File(path);
-		File[] listOfFiles = folder.listFiles();
-		if (listOfFiles != null) {
-			for (File file : listOfFiles) {
-				if (file.isFile()) {
-					files.add(file.getName());
-				}
-			}
-		}
-		return files;
-	}
-}
+import custom_utils.*;
 
 // dummy
 class ReverseMappingUtility {
 	private HashMap<String, ArrayList<String>> wordVsConceptHash = new HashMap<>();
+	private FileRead fileReader = new FileRead();
 
 	ReverseMappingUtility(ArrayList<String> fileList, String __PATH__) {
 		for (String file : fileList) {
@@ -49,6 +35,20 @@ class ReverseMappingUtility {
 			} catch (Exception e) {
 				System.out.println("Error reported" + e);
 			}
+			// ArrayList<String> lines = fileReader.getFileList(new File(__PATH__ + "/" + file));
+			// for (String line : lines) {
+			// 	String first_word = line.split("\\s+")[0];
+			// 	String concept = file.split("\\.")[0];
+
+			// 	if (wordVsConceptHash.get(first_word) == null) {
+			// 		wordVsConceptHash.put(first_word, new ArrayList<String>());
+			// 		wordVsConceptHash.get(first_word).add(concept);
+			// 	} else {
+			// 		if (!wordVsConceptHash.get(first_word).contains(concept)) {
+			// 			wordVsConceptHash.get(first_word).add(concept);
+			// 		}
+			// 	}
+			// }
 		}
 	}
 
@@ -65,6 +65,7 @@ class ReverseMappingUtility {
 // dummy
 class ConceptTableUtility {
 	private HashMap<String, HashMap<String, Boolean>> wordVsConceptTable = new HashMap<>();
+	private FileRead fileReader = new FileRead();
 
 	ConceptTableUtility(ArrayList<String> fileList, String __PATH__) {
 		for (String file : fileList) {
@@ -90,6 +91,15 @@ class ConceptTableUtility {
 			} catch (Exception e) {
 				System.out.println("Error reported");
 			}
+			// ArrayList<String> lines = fileReader.getFileList(new File(__PATH__ + "/" + file));
+			// for (String line : lines) {
+			// 	String[] wordList = line.split("\\s+");
+			// 	for (String word : wordList) {
+			// 		if (!inner_map.containsKey(word)) {
+			// 			inner_map.put(word, true);
+			// 		}
+			// 	}
+			// }
 		}
 	}
 
@@ -113,14 +123,15 @@ class ConceptTableUtility {
 
 public class Concept_parser {
 	private String __RESOUCSE_PATH__ = "./resources/";
-	private FileSystemUtility fileSystemUtility = new FileSystemUtility();
 	private ArrayList<String> fileList;
 	private ReverseMappingUtility reverseMappingUtility;
 	private ConceptTableUtility conceptTableUtility;
+	private FileRead fileReader;
 
 	public Concept_parser() {
 		// list all files in concept folder
-		this.fileList = fileSystemUtility.generateFileList(__RESOUCSE_PATH__ + "Concept");
+		this.fileReader = new FileRead();
+		this.fileList = this.fileReader.getFileList(new File(__RESOUCSE_PATH__ + "Concept"));
 
 		// get utility object for first word tagging
 		this.reverseMappingUtility = new ReverseMappingUtility(fileList, __RESOUCSE_PATH__ + "Concept");
