@@ -18,6 +18,7 @@ class Main {
 		st = ma.find_dateTime(st);
 		st = pm.find_placeholder(st);
 		st = pre.rExtraSpaces(st);
+		System.out.println("Conv: "+st);
 		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
@@ -54,7 +55,7 @@ class Main {
 			System.out.println(e);
 		}
 		try{
-			GrammarWeight gw = new GrammarWeight(); 
+			GrammarWeight gw = new GrammarWeight();
 			HashMap<String, HashMap<String, Double>> tf = gw.getTF(); // generate TF of every word.
 			HashMap<String, HashMap<String, String>> charMap = gw.getSymbol();
 			for(String ss: tf.keySet()){
