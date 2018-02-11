@@ -51,6 +51,7 @@ class samsungtest {
 				}
 				String result = convertToGrammer(line);   
 				writer.println(result);
+				System.out.println(line);
 				System.out.println(result);
 			}
 			writer.close();
