@@ -5,9 +5,16 @@ import java.util.*;
 import java.text.*;
 import java.math.*;
 import java.util.regex.*;
+
+import com.sun.beans.editors.DoubleEditor;
+
 import custom_utils.FileRead.*;
 
 public class GrammarWeight {
+  
+  Double idfConceptFact = new Double(1);
+  Double idfNonConceptFact = new Double(0.01);
+
   HashMap<String, HashMap<String, HashMap<String, Double>>> datadict = new HashMap<String, HashMap<String, HashMap<String, Double>>>();
   HashMap<String, HashMap<String, Double>> tf = new HashMap<String, HashMap<String, Double>>();
   HashMap<String, HashMap<String, String>> symbol = new HashMap<String, HashMap<String, String>>();
@@ -19,7 +26,7 @@ public class GrammarWeight {
     for (String w : words) {
       Double n = map.get(w);
       n = (n == null) ? new Double(1) : ++n;
-      map.put(w, n);
+      map.put(w.toLowerCase(), n);
     }
     for (String w : words) {
       Double n = map.get(w) / new Double(words.size());
@@ -33,7 +40,7 @@ public class GrammarWeight {
     HashMap<String, String> sym = new HashMap<>();
     int count = new Integer(65);
     for (String w : unqWords) {
-      sym.put(w, String.valueOf(Character.toChars(count)));
+      sym.put(w.toLowerCase(), String.valueOf(Character.toChars(count)));
       count++;
     }
     return sym;
@@ -44,7 +51,7 @@ public class GrammarWeight {
     for (String w : wordSet) {
       Double n = idf.get(w);
       n = (n == null) ? new Double(1) : ++n;
-      idf.put(w, n);
+      idf.put(w.toLowerCase(), n);
     }
   }
 
@@ -75,9 +82,11 @@ public class GrammarWeight {
       if (dt.isPattern(pattern, key)) {
         // System.out.println(key);
         x = -Math.log(idf.get(key) / new Double(fileList.size()));
+        x *= idfConceptFact;
       } else {
-        // x = -Math.log(idf.get(key) / new Double(fileList.size()));
-        x = new Double(0);
+        x = -Math.log(idf.get(key) / new Double(fileList.size()));
+        x *= idfNonConceptFact;
+        // x = new Double(0.00000001);
       }
       // x = -Math.log(idf.get(key) / new Double(fileList.size()));
       idf.put(key, x);
