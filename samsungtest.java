@@ -21,38 +21,22 @@ class samsungtest {
 		// concepts are replaced as stated in Concept/*.txt files
 		stList = concept_parser.generate_concept(st);
 		System.out.println(stList);
-		// DateTime placeholders are detected and replaced
-		// st = ma.find_dateTime(st);
-		// Placeholders(excluding dateTime) are identified and replaced
-		// st = pm.find_placeholder(st);
-		// ----------------------------------------------
-		OpenPhrase op = new OpenPhrase(st);
-		// @TO.DO
-		// a = op.getAlarmName(st);
-		// st = op.rAlarmName(st);
+		for (String pt : stList) {
+			// // DateTime placeholders are detected and replaced
+			st = ma.find_dateTime(pt);
+			// // Placeholders(excluding dateTime) are identified and replaced
+			st = pm.find_placeholder(st);
+			// System.out.println(st);
+			// // ----------------------------------------------
+			OpenPhrase op = new OpenPhrase(st);
 
-		// @TO.DO
-		// b = op.getNoteName(st);
-		// st = op.rNoteName(st);
-
-		// @TO.DO
-		// c = op.getNoteContent(st);
-		// st = op.rNoteContent(st);
-
-		// @TO.DO
-		// d = op.getSrcEventName(st);
-		// st = op.rSrcEventName(st);
-
-		// @TO.DO
-		// e = op.getTgtEventName(st);
-		// st = op.rTgtEventName(st);
-
-		// ----------------------------------------------
-		// Extra spaces are removed.
-		// st = pre.rExtraSpaces(st);
-		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
-		// System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-		// st = grammarAnalyser.findGrammer(st);
+			// // ----------------------------------------------
+			// // Extra spaces are removed.
+			st = pre.rExtraSpaces(op.st);
+			// // The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
+			// // System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
+			st = grammarAnalyser.findGrammer(st);
+		}
 		return st;
 	}
 
@@ -60,7 +44,7 @@ class samsungtest {
 
 		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt 
 		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
-		System.out.println(convertToGrammer("make event at midnight and set alarm at 2:30pm"));
+		System.out.println(convertToGrammer("make event at midnight and make alarm at 2:30pm"));
 
 		// Input from ./resources/Testing/input.txt
 		// FileRead fileread = new FileRead();
