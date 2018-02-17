@@ -37,11 +37,11 @@ class samsungtest {
 		// st = op.rNoteContent(st);
 
 		// @TO.DO
-    // op.getSrcEventName(st);
+    // d = op.getSrcEventName(st);
 		// st = op.rSrcEventName(st);
 
 		// @TO.DO
-    // op.getTgtEventName(st);
+    // e = op.getTgtEventName(st);
 		// st = op.rTgtEventName(st);
 
 // ----------------------------------------------
