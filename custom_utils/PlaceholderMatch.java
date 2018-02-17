@@ -12,12 +12,20 @@ public class PlaceholderMatch {
 	ArrayList<String> all_names_individual = new ArrayList<String>();
 	ArrayList<String> all_places = new ArrayList<String>();
 
+	public HashMap<String, ArrayList<String>> all_replacements = new HashMap<String, ArrayList<String>>();
+
 	int max_len_name = 0;
 	int max_len_place = 0;
 
 	public PlaceholderMatch() {
 		// System.out.println("Constructor called");
 		read_contents();
+
+		ArrayList<String> arraylist = new ArrayList<String>();
+		ArrayList<String> arraylist2 = new ArrayList<String>();
+
+		all_replacements.put("<place>", arraylist);
+		all_replacements.put("<contact_name>", arraylist2);
 	}
 
 	public void read_contents() {
@@ -163,12 +171,19 @@ public class PlaceholderMatch {
 					double similarity_score = jaro_winkler_dist(temp, name);
 					if (similarity_score > 0.85) {
 						// Match
+						String temp_str = str_list.get(i);
+						
 						str_list.set(i, "<contact_name>");
 						int c = i + 1;
+
 						while (c <= j) {
+							temp_str = temp_str + ' ' + str_list.get(i + 1);
 							str_list.remove(i + 1);
 							c++;
 						}
+						ArrayList<String> temp_list = all_replacements.get("<contact_name>");
+						temp_list.add(temp_str);
+						all_replacements.put("<contact_name>", temp_list);
 						flag = true;
 						break;
 					}
@@ -192,7 +207,7 @@ public class PlaceholderMatch {
 			// 	break;
 			// }
 		}
-
+		// System.out.println(str_list);
 		// Now for places
 		flag = false;
 		for (int l = max_len_place; l > 0; l--) {
@@ -210,14 +225,30 @@ public class PlaceholderMatch {
 					// if (name == "varanasi")
 					// 	System.out.println(str_list.get(i));
 					double similarity_score = jaro_winkler_dist(temp, name);
-					if (similarity_score > 0.75) {
+
+					if(temp.split(" ", 0).length > 1)
+						similarity_score += 0.05;
+					
+					if (similarity_score > 0.82) {
+
+						if (temp.split(" ", 0).length != name.split(" ", 0).length) {
+							continue;
+						}
+						// System.out.println(similarity_score);
+						String temp_str = str_list.get(i);
 						// Match
 						str_list.set(i, "<place>");
 						int c = i + 1;
 						while (c <= j) {
+							temp_str = temp_str + ' ' + str_list.get(i + 1);
 							str_list.remove(i + 1);
 							c++;
 						}
+
+						ArrayList<String> temp_list = all_replacements.get("<place>");
+						temp_list.add(temp_str);
+						all_replacements.put("<place>", temp_list);
+
 						flag = true;
 						break;
 					}
