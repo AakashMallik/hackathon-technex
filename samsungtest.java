@@ -20,7 +20,7 @@ class samsungtest {
 		ArrayList<String> stList = new ArrayList<>();
 		// concepts are replaced as stated in Concept/*.txt files
 		stList = concept_parser.generate_concept(st);
-		System.out.println(stList);
+		// System.out.println(stList);
 		for (String pt : stList) {
 			// // DateTime placeholders are detected and replaced
 			st = ma.find_dateTime(pt);
@@ -35,8 +35,9 @@ class samsungtest {
 			st = pre.rExtraSpaces(op.st);
 			// // The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
 			// // System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-			st = grammarAnalyser.findGrammer(st);
+			System.out.println(st);
 		}
+		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
 
@@ -44,7 +45,7 @@ class samsungtest {
 
 		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt 
 		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
-		System.out.println(convertToGrammer("make event at midnight and make alarm at 2:30pm"));
+		// System.out.println(convertToGrammer("make event at midnight and make alarm at 2:30pm"));
 
 		// Input from ./resources/Testing/input.txt
 		FileRead fileread = new FileRead();
