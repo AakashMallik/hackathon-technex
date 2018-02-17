@@ -1,1 +1,33 @@
-CreateNoteWithNameAndContent
+testing/input.txt :
+case#1:
+i want you <tgt_event_name> g event
+case#2:
+create tomorrow 9:30 p.m. event at bangalore
+case#3:
+ can you please set a team lunch alarm at 11 am tomorrow 
+case#4:
+can you make a call <tgt_event_name> me
+case#5:
+send an email to rahul dravid
+case#6:
+update me about weather in new york thanks
+case#7:
+can you tell me when will it rain in bangalore at 6 a.m. tomorrow
+case#8:
+find out what is time in london now thanks
+case#9:
+what is time now
+case#10:
+what is date today
+case#11:
+can you book a flight ticket on 14 february from bangalore to varanasi
+case#12:
+on 5 a.m. tomorrow make build body alarm please
+case#13:
+with name go to make money create a alarm at 8 a.m. tomorrow
+case#14:
+please make a note with title shopping list and <note_content> it
+case#15:
+can you please note <note_content> me in trip expanse
+case#16:
+would you please search fruit and juice and <src_event_name> application

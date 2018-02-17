@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 import java.math.*;
+import java.util.Arrays.*;
 import java.util.regex.*;
 
 public class OpenPhrase {
-  String st;
+  public String st;
   HashMap<String, ArrayList<String>> tagmap = new HashMap<String, ArrayList<String>>();
   FileRead fileRead = new FileRead();
   // constructor
@@ -61,8 +62,19 @@ public class OpenPhrase {
         for(String line : sentences) {
             String[] words = line.split("\\s+");
             if(matchMe(".*"+tag+".*",line)){
-              System.out.println(tag+" -> "+line);
-          }
+              int index = Arrays.asList(words).indexOf(tag);
+              // System.out.println(tag+" -> "+line+" "+Integer.valueOf(index));
+              String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") + 
+              ".*" + 
+              words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
+
+              boolean match = matchMe(".*" + pattern + ".*", this.st);
+              System.out.println(words[Math.max(index-1,0)]+" * "+words[Math.min(words.length-1,index+1)]+"\t\t\t"+match);
+              if(match) { 
+                this.st = replace(this.st, pattern, tag); 
+                System.out.println(this.st);
+              }
+            }
         }
 
       }
