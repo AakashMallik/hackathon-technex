@@ -25,6 +25,29 @@ class samsungtest {
 		// st = ma.find_dateTime(st);
 		// Placeholders(excluding dateTime) are identified and replaced
 		// st = pm.find_placeholder(st);
+		// ----------------------------------------------
+		OpenPhrase op = new OpenPhrase(st);
+		// @TO.DO
+		// a = op.getAlarmName(st);
+		// st = op.rAlarmName(st);
+
+		// @TO.DO
+		// b = op.getNoteName(st);
+		// st = op.rNoteName(st);
+
+		// @TO.DO
+		// c = op.getNoteContent(st);
+		// st = op.rNoteContent(st);
+
+		// @TO.DO
+		// d = op.getSrcEventName(st);
+		// st = op.rSrcEventName(st);
+
+		// @TO.DO
+		// e = op.getTgtEventName(st);
+		// st = op.rTgtEventName(st);
+
+		// ----------------------------------------------
 		// Extra spaces are removed.
 		// st = pre.rExtraSpaces(st);
 		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
@@ -52,7 +75,7 @@ class samsungtest {
 		// 			writer.println(line);
 		// 			continue;
 		// 		}
-		// 		String result = convertToGrammer(line);   
+		// 		String result = convertToGrammer(line);
 		// 		writer.println(result);
 		// 		System.out.println(line);
 		// 		System.out.println(result);
