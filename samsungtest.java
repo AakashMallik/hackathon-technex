@@ -11,10 +11,11 @@ class samsungtest {
 		PlaceholderMatch pm = new PlaceholderMatch();
 		Concept_parser concept_parser = new Concept_parser();
 		GrammarAnalyser grammarAnalyser = new GrammarAnalyser();
+		OpenPhrase op = new OpenPhrase();
 
 		//  Non-Alphanumeric characters are removed
 		st = pre.rExtraChars(st);
-		// Extra spaces are removed 
+		// Extra spaces are removed
 		st = pre.rExtraSpaces(st);
 		// concepts are replaced as stated in Concept/*.txt files
 		st = concept_parser.generate_concept(st);
@@ -22,6 +23,28 @@ class samsungtest {
 		st = ma.find_dateTime(st);
 		// Placeholders(excluding dateTime) are identified and replaced
 		st = pm.find_placeholder(st);
+// ----------------------------------------------
+		// @TO.DO
+		// a = op.getAlarmName(st);
+    // st = op.rAlarmName(st);
+
+		// @TO.DO
+		// b = op.getNoteName(st);
+		// st = op.rNoteName(st);
+
+    // @TO.DO
+    // c = op.getNoteContent(st);
+		// st = op.rNoteContent(st);
+
+		// @TO.DO
+    // op.getSrcEventName(st);
+		// st = op.rSrcEventName(st);
+
+		// @TO.DO
+    // op.getTgtEventName(st);
+		// st = op.rTgtEventName(st);
+
+// ----------------------------------------------
 		// Extra spaces are removed.
 		st = pre.rExtraSpaces(st);
 		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
@@ -32,9 +55,9 @@ class samsungtest {
 
 	public static void main(String[] args) {
 
-		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt 
+		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt
 		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
-		
+
 
 		// Input from ./resources/Testing/input.txt
 		FileRead fileread = new FileRead();
@@ -49,7 +72,7 @@ class samsungtest {
 					writer.println(line);
 					continue;
 				}
-				String result = convertToGrammer(line);   
+				String result = convertToGrammer(line);
 				writer.println(result);
 				System.out.println(line);
 				System.out.println(result);
