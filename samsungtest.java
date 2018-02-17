@@ -11,19 +11,20 @@ class samsungtest {
 		PlaceholderMatch pm = new PlaceholderMatch();
 		Concept_parser concept_parser = new Concept_parser();
 		GrammarAnalyser grammarAnalyser = new GrammarAnalyser();
-		OpenPhrase op = new OpenPhrase();
 
-		//  Non-Alphanumeric characters are removed
-		st = pre.rExtraChars(st);
-		// Extra spaces are removed
-		st = pre.rExtraSpaces(st);
-		// concepts are replaced as stated in Concept/*.txt files
-		st = concept_parser.generate_concept(st);
-		// DateTime placeholders are detected and replaced
-		st = ma.find_dateTime(st);
-		// Placeholders(excluding dateTime) are identified and replaced
-		st = pm.find_placeholder(st);
+    // 
+		// //  Non-Alphanumeric characters are removed
+		// st = pre.rExtraChars(st);
+		// // Extra spaces are removed
+		// st = pre.rExtraSpaces(st);
+		// // concepts are replaced as stated in Concept/*.txt files
+		// st = concept_parser.generate_concept(st);
+		// // DateTime placeholders are detected and replaced
+		// st = ma.find_dateTime(st);
+		// // Placeholders(excluding dateTime) are identified and replaced
+		// st = pm.find_placeholder(st);
 // ----------------------------------------------
+		OpenPhrase op = new OpenPhrase(st);
 		// @TO.DO
 		// a = op.getAlarmName(st);
     // st = op.rAlarmName(st);
@@ -56,30 +57,30 @@ class samsungtest {
 	public static void main(String[] args) {
 
 		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt
-		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
+		System.out.println(convertToGrammer("create a tomorrow 8 pm  calendar event named Samsung demo at IIt bhu and invite Ajay"));
 
 
-		// Input from ./resources/Testing/input.txt
-		FileRead fileread = new FileRead();
-		System.out.println("*****Please find the output in the Testing folder*****");
-		try {
-			PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
-			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
-
-			for(String line : sentences) {
-				if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
-					System.out.println(line);
-					writer.println(line);
-					continue;
-				}
-				String result = convertToGrammer(line);
-				writer.println(result);
-				System.out.println(line);
-				System.out.println(result);
-			}
-			writer.close();
-		} catch (Exception e) {
-			System.out.println("Error reported" + e);
-		}
+		// // Input from ./resources/Testing/input.txt
+		// FileRead fileread = new FileRead();
+		// // System.out.println("*****Please find the output in the Testing folder*****");
+		// try {
+		// 	PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
+		// 	ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
+    //
+		// 	for(String line : sentences) {
+		// 		if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
+		// 			System.out.println(line);
+		// 			writer.println(line);
+		// 			continue;
+		// 		}
+		// 		String result = convertToGrammer(line);
+		// 		writer.println(result);
+		// 		System.out.println(line);
+		// 		System.out.println(result);
+		// 	}
+		// 	writer.close();
+		// } catch (Exception e) {
+		// 	System.out.println("Error reported" + e);
+		// }
 	}
 }
