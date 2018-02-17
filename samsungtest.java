@@ -47,26 +47,28 @@ class samsungtest {
 		System.out.println(convertToGrammer("make event at midnight and make alarm at 2:30pm"));
 
 		// Input from ./resources/Testing/input.txt
-		// FileRead fileread = new FileRead();
+		FileRead fileread = new FileRead();
 		// System.out.println("*****Please find the output in the Testing folder*****");
-		// try {
-		// 	PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
-		// 	ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
+		try {
+			PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
+			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
 
-		// 	for(String line : sentences) {
-		// 		if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
-		// 			System.out.println(line);
-		// 			writer.println(line);
-		// 			continue;
-		// 		}
-		// 		String result = convertToGrammer(line);
-		// 		writer.println(result);
-		// 		System.out.println(line);
-		// 		System.out.println(result);
-		// 	}
-		// 	writer.close();
-		// } catch (Exception e) {
-		// 	System.out.println("Error reported" + e);
-		// }
+			for (String line : sentences) {
+				if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
+					System.out.println(line);
+					writer.println(line);
+					continue;
+				}
+				String result = convertToGrammer(line);
+				writer.println(result);
+				System.out.println(line);
+				System.out.println(result);
+				System.out.println(
+						"**************************************************************************************************************************");
+			}
+			writer.close();
+		} catch (Exception e) {
+			System.out.println("Error reported" + e);
+		}
 	}
 }
