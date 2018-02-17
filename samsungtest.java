@@ -16,17 +16,20 @@ class samsungtest {
 		st = pre.rExtraChars(st);
 		// Extra spaces are removed 
 		st = pre.rExtraSpaces(st);
+
+		ArrayList<String> stList = new ArrayList<>();
 		// concepts are replaced as stated in Concept/*.txt files
-		st = concept_parser.generate_concept(st);
+		stList = concept_parser.generate_concept(st);
+		System.out.println(stList);
 		// DateTime placeholders are detected and replaced
-		st = ma.find_dateTime(st);
+		// st = ma.find_dateTime(st);
 		// Placeholders(excluding dateTime) are identified and replaced
-		st = pm.find_placeholder(st);
+		// st = pm.find_placeholder(st);
 		// Extra spaces are removed.
-		st = pre.rExtraSpaces(st);
+		// st = pre.rExtraSpaces(st);
 		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
 		// System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-		st = grammarAnalyser.findGrammer(st);
+		// st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
 
@@ -34,29 +37,29 @@ class samsungtest {
 
 		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt 
 		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
-		
+		System.out.println(convertToGrammer("make event at midnight and set alarm at 2:30pm"));
 
 		// Input from ./resources/Testing/input.txt
-		FileRead fileread = new FileRead();
-		System.out.println("*****Please find the output in the Testing folder*****");
-		try {
-			PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
-			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
+		// FileRead fileread = new FileRead();
+		// System.out.println("*****Please find the output in the Testing folder*****");
+		// try {
+		// 	PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
+		// 	ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
 
-			for(String line : sentences) {
-				if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
-					System.out.println(line);
-					writer.println(line);
-					continue;
-				}
-				String result = convertToGrammer(line);   
-				writer.println(result);
-				System.out.println(line);
-				System.out.println(result);
-			}
-			writer.close();
-		} catch (Exception e) {
-			System.out.println("Error reported" + e);
-		}
+		// 	for(String line : sentences) {
+		// 		if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
+		// 			System.out.println(line);
+		// 			writer.println(line);
+		// 			continue;
+		// 		}
+		// 		String result = convertToGrammer(line);   
+		// 		writer.println(result);
+		// 		System.out.println(line);
+		// 		System.out.println(result);
+		// 	}
+		// 	writer.close();
+		// } catch (Exception e) {
+		// 	System.out.println("Error reported" + e);
+		// }
 	}
 }
