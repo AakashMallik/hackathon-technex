@@ -12,40 +12,42 @@ class samsungtest {
 		Concept_parser concept_parser = new Concept_parser();
 		GrammarAnalyser grammarAnalyser = new GrammarAnalyser();
 
-    // 
-		// //  Non-Alphanumeric characters are removed
-		// st = pre.rExtraChars(st);
-		// // Extra spaces are removed
-		// st = pre.rExtraSpaces(st);
-		// // concepts are replaced as stated in Concept/*.txt files
-		// st = concept_parser.generate_concept(st);
-		// // DateTime placeholders are detected and replaced
+		//  Non-Alphanumeric characters are removed
+		st = pre.rExtraChars(st);
+		// Extra spaces are removed 
+		st = pre.rExtraSpaces(st);
+
+		ArrayList<String> stList = new ArrayList<>();
+		// concepts are replaced as stated in Concept/*.txt files
+		stList = concept_parser.generate_concept(st);
+		System.out.println(stList);
+		// DateTime placeholders are detected and replaced
 		// st = ma.find_dateTime(st);
-		// // Placeholders(excluding dateTime) are identified and replaced
+		// Placeholders(excluding dateTime) are identified and replaced
 		// st = pm.find_placeholder(st);
-// ----------------------------------------------
+		// ----------------------------------------------
 		OpenPhrase op = new OpenPhrase(st);
 		// @TO.DO
 		// a = op.getAlarmName(st);
-    // st = op.rAlarmName(st);
+		// st = op.rAlarmName(st);
 
 		// @TO.DO
 		// b = op.getNoteName(st);
 		// st = op.rNoteName(st);
 
-    // @TO.DO
-    // c = op.getNoteContent(st);
+		// @TO.DO
+		// c = op.getNoteContent(st);
 		// st = op.rNoteContent(st);
 
 		// @TO.DO
-    // d = op.getSrcEventName(st);
+		// d = op.getSrcEventName(st);
 		// st = op.rSrcEventName(st);
 
 		// @TO.DO
-    // e = op.getTgtEventName(st);
+		// e = op.getTgtEventName(st);
 		// st = op.rTgtEventName(st);
 
-// ----------------------------------------------
+		// ----------------------------------------------
 		// Extra spaces are removed.
 		st = pre.rExtraSpaces(op.st);
 		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
