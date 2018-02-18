@@ -94,8 +94,8 @@ public class OpenPhrase {
 
               //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
-                System.out.println(match);
-                System.out.println(this.st);
+                // System.out.println(match);
+                // System.out.println(this.st);
                 String[] temp = this.st.split("\\s+");
                 // System.out.println(this.st + "--" + pattern + "--" + st2);
 
@@ -103,7 +103,7 @@ public class OpenPhrase {
                 this.st = this.st.trim().replaceAll("#", "\\{").replaceAll("@", "\\}");
 
 
-                //System.out.println(this.st);
+                // System.out.println(this.st);
 
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
@@ -111,7 +111,7 @@ public class OpenPhrase {
                   if(!temp2[i].equals(temp[i])){
                     for(int j = i; j < temp.length; j++)  {
 
-                      System.out.println(repl);
+                      // System.out.println(repl);
 
                       // if (i == temp2.length - 1) {
                       //   continue;
@@ -148,11 +148,16 @@ public class OpenPhrase {
                   }
                 }
                 // System.out.println(repl);
+
                 ArrayList<String> temp_list = tagmap.get(tag);
                 if(temp_list ==null)
                   temp_list = new ArrayList<String>();
-                temp_list.add(repl.trim());
-                tagmap.put(tag, temp_list);
+                if (!repl.equals("")) {
+                  temp_list.add(repl.trim());
+                  tagmap.put(tag, temp_list);
+                }
+
+
 
               }
 
