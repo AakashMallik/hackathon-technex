@@ -14,38 +14,43 @@ class samsungtest {
 
 		//  Non-Alphanumeric characters are removed
 		st = pre.rExtraChars(st);
-		// Extra spaces are removed 
+		// Extra spaces are removed
 		st = pre.rExtraSpaces(st);
 
 		ArrayList<String> stList = new ArrayList<>();
 		// concepts are replaced as stated in Concept/*.txt files
 		stList = concept_parser.generate_concept(st);
-		System.out.println(stList);
-		// DateTime placeholders are detected and replaced
-		st = ma.find_dateTime(st);
-		// Placeholders(excluding dateTime) are identified and replaced
-		st = pm.find_placeholder(st);
-		System.out.println("B op: "+st);
-		// ----------------------------------------------
-		OpenPhrase op = new OpenPhrase(st);
-		// ----------------------------------------------
-		// Extra spaces are removed.
-		st = pre.rExtraSpaces(op.st);
-		System.out.println(st);
-		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
-		// System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-		st = grammarAnalyser.findGrammer(st);
+		// System.out.println(stList);
+
+		ArrayList<String> processed_string_list = new ArrayList<>();
+		for (String pt : stList) {
+			// // DateTime placeholders are detected and replaced
+			st = ma.find_dateTime(pt);
+			// // Placeholders(excluding dateTime) are identified and replaced
+			st = pm.find_placeholder(st);
+			// System.out.println(st);
+			// // ----------------------------------------------
+			OpenPhrase op = new OpenPhrase(st);
+
+			// // ----------------------------------------------
+			// // Extra spaces are removed.
+			st = pre.rExtraSpaces(op.st);
+			// // The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
+			// // System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
+			// System.out.println(st);
+			processed_string_list.add(st);
+		}
+		System.out.println(processed_string_list);
+		st = grammarAnalyser.findGrammer(processed_string_list);
+		// System.out.println(st);
 		return st;
 	}
 
 	public static void main(String[] args) {
 
 		// Manual Testing - Uncomment the below line to test you own sentences one by one or leave it as such to read from input.txt
-		// String st="with name go to make money create a alarm at 8 a.m. tomorrow";
-		// String st = "with {name_concept} go to make money {create_concept} an alram for me at <dateTime> thanks";
-		// System.out.println(st);
-		// System.out.println(convertToGrammer(st));
-
+		// System.out.println(convertToGrammer("Can you please set an alarm at 3 pm tomorrow"));
+		// System.out.println(convertToGrammer("make event at midnight and make alarm at 2:30pm"));
 
 		// Input from ./resources/Testing/input.txt
 		FileRead fileread = new FileRead();
@@ -53,8 +58,8 @@ class samsungtest {
 		try {
 			PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
 			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
-    
-			for(String line : sentences) {
+
+			for (String line : sentences) {
 				if (line.subSequence(0, 4).toString().toLowerCase().equals("case")) {
 					System.out.println(line);
 					writer.println(line);
@@ -63,8 +68,9 @@ class samsungtest {
 				String result = convertToGrammer(line);
 				writer.println(result);
 				System.out.println(line);
-				// System.out.println(result);
-				System.out.println("**************************************************************************************************************************");
+				System.out.println(result);
+				System.out.println(
+						"**************************************************************************************************************************");
 			}
 			writer.close();
 		} catch (Exception e) {

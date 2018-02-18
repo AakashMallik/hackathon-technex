@@ -36,7 +36,7 @@ class GrammarEncoder {
 			this.grammarSymbolList_tf = gw.getSymbol();
 			this.grammarWeightList_idf = gw.getIDF();
 		} catch (Exception e) {
-			System.out.println(e);
+			// System.out.println(e);
 		}
 	}
 
@@ -95,45 +95,57 @@ public class GrammarAnalyser {
 		}
 	}
 
-	public String findGrammer(String sentense) {
-		String[] tokenArray = sentense.split("\\s+");
+	public String findGrammer(ArrayList<String> sentenseList) {
+		HashMap<String, Double> fileVsScore = new HashMap<>();
+		for (String sentense : sentenseList) {
+			String[] tokenArray = sentense.split("\\s+");
 
-		// the code per grammar for the sentence provided by the user
-		HashMap<String, String> sentenseEncodedGrammar = new HashMap<>();
-		for (String file : this.fileList) {
-			String grammar = file.split("\\.")[0];
-			sentenseEncodedGrammar.put(grammar, this.grammarEncoder.encode(grammar, tokenArray));
-		}
+			// the code per grammar for the sentence provided by the user
+			HashMap<String, String> sentenseEncodedGrammar = new HashMap<>();
+			for (String file : this.fileList) {
+				String grammar = file.split("\\.")[0];
+				sentenseEncodedGrammar.put(grammar, this.grammarEncoder.encode(grammar, tokenArray));
+			}
 
-		//find optimum match
-		double globalMax = -1000.0;
-		String globalMaxFile = "";
-		for (String grammar : this.encodedGrammarList.keySet()) {
-			String token_code = sentenseEncodedGrammar.get(grammar);
-			double localMax = -1000.0;
-			for (String code : this.encodedGrammarList.get(grammar)) {
-				double dist = PlaceholderMatch.jaro_winkler_dist(token_code, code, false);
-				dist = dist * token_code.length();
+			//find optimum match
+			double globalMax = -1000.0;
+			String globalMaxFile = "";
+			for (String grammar : this.encodedGrammarList.keySet()) {
+				String token_code = sentenseEncodedGrammar.get(grammar);
+				double localMax = -1000.0;
+				for (String code : this.encodedGrammarList.get(grammar)) {
+					double dist = PlaceholderMatch.jaro_winkler_dist(token_code, code, false);
+					dist = dist * token_code.length();
 
-				// System.out.println(token_code);
-				// System.out.println(code);
+					// System.out.println(token_code);
+					// System.out.println(code);
 
-				// System.out.println(grammar);
-				// System.out.println(dist);
+					// System.out.println(grammar);
+					// System.out.println(dist);
 
-				if (localMax < dist) {
-					localMax = dist;
+					if (localMax < dist) {
+						localMax = dist;
+					}
 				}
-			}
 
-			if (localMax > globalMax) {
-				globalMax = localMax;
-				globalMaxFile = grammar;
+				if (localMax > globalMax) {
+					globalMax = localMax;
+					globalMaxFile = grammar;
+				}
+				localMax = -1000.0;
 			}
-			localMax = -1000.0;
+			fileVsScore.put(globalMaxFile, globalMax);
 		}
 
-		// System.out.println(sentenseEncodedGrammar);
-		return globalMaxFile;
+		Double max = Double.MIN_VALUE;
+		String output = "";
+		for (String file : fileVsScore.keySet()) {
+			System.out.println(file + " : " + fileVsScore.get(file));
+			if (max < fileVsScore.get(file)) {
+				max = fileVsScore.get(file);
+				output = file;
+			}
+		}
+		return output;
 	}
 }
