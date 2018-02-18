@@ -22,37 +22,19 @@ class samsungtest {
 		stList = concept_parser.generate_concept(st);
 		System.out.println(stList);
 		// DateTime placeholders are detected and replaced
-		// st = ma.find_dateTime(st);
+		st = ma.find_dateTime(st);
 		// Placeholders(excluding dateTime) are identified and replaced
-		// st = pm.find_placeholder(st);
+		st = pm.find_placeholder(st);
+		System.out.println("B op: "+st);
 		// ----------------------------------------------
 		OpenPhrase op = new OpenPhrase(st);
-		// @TO.DO
-		// a = op.getAlarmName(st);
-		// st = op.rAlarmName(st);
-
-		// @TO.DO
-		// b = op.getNoteName(st);
-		// st = op.rNoteName(st);
-
-		// @TO.DO
-		// c = op.getNoteContent(st);
-		// st = op.rNoteContent(st);
-
-		// @TO.DO
-		// d = op.getSrcEventName(st);
-		// st = op.rSrcEventName(st);
-
-		// @TO.DO
-		// e = op.getTgtEventName(st);
-		// st = op.rTgtEventName(st);
-
 		// ----------------------------------------------
 		// Extra spaces are removed.
 		st = pre.rExtraSpaces(op.st);
+		System.out.println(st);
 		// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
 		// System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-		// st = grammarAnalyser.findGrammer(st);
+		st = grammarAnalyser.findGrammer(st);
 		return st;
 	}
 
@@ -81,7 +63,7 @@ class samsungtest {
 				String result = convertToGrammer(line);
 				writer.println(result);
 				System.out.println(line);
-				System.out.println(result);
+				// System.out.println(result);
 				System.out.println("**************************************************************************************************************************");
 			}
 			writer.close();

@@ -9,6 +9,7 @@ import java.util.regex.*;
 
 public class OpenPhrase {
   public String st;
+  public int windowSize = 1;
   HashMap<String, ArrayList<String>> tagmap = new HashMap<String, ArrayList<String>>();
   FileRead fileRead = new FileRead();
   // constructor
@@ -64,14 +65,25 @@ public class OpenPhrase {
             if(matchMe(".*"+tag+".*",line)){
               int index = Arrays.asList(words).indexOf(tag);
               // System.out.println(tag+" -> "+line+" "+Integer.valueOf(index));
-              String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") + 
-              ".*" + 
-              words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
+              String pattern = "";
+              for(int i=0;i<words.length;i++){
+                if( i >= index - this.windowSize && i < index)
+                  pattern += words[i].replaceAll("\\{","\\\\\\{").replaceAll("\\}","\\\\\\}");
+                else if( i == index)
+                  pattern += ".*";
+                else if(i > index && i <= index + this.windowSize)
+                  pattern += words[i].replaceAll("\\{","\\\\\\{").replaceAll("\\}","\\\\\\}");
+              }
 
+              // String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") +
+              // ".*" +
+              // words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
+              System.out.println("Pat: "+pattern);
               boolean match = matchMe(".*" + pattern + ".*", this.st);
-              System.out.println(words[Math.max(index-1,0)]+" * "+words[Math.min(words.length-1,index+1)]+"\t\t\t"+match);
-              if(match) { 
-                this.st = replace(this.st, pattern, tag); 
+              // System.out.println(words[Math.max(index-1,0)]+" * "+words[Math.min(words.length-1,index+1)]+"\t\t\t"+match);
+              if(match) {
+                pattern = replace(pattern, "\\{[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}\\}"," ");
+                this.st = replace(this.st, pattern, tag);
                 System.out.println(this.st);
               }
             }

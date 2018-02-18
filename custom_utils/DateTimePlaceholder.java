@@ -42,7 +42,7 @@ public class DateTimePlaceholder {
 
   // matching for day, today, tomorrow, sunday, mon etc.
   public boolean isDay(String st) {
-    return matchMe(".*" + day + ".*", st);
+    return matchMe(".*(\\s+)" + day + "(\\s+).*", st);
   }
 
   // matching for any of the date format already given, date1,date2,date3,date4
