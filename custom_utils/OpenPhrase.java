@@ -13,7 +13,7 @@ public class OpenPhrase {
   public HashMap<String, ArrayList<String>> tagmap = new HashMap<String, ArrayList<String>>();
   FileRead fileRead = new FileRead();
 
-
+  // constructor
   public OpenPhrase(String st) {
     this.st = st;
     try {
@@ -22,16 +22,16 @@ public class OpenPhrase {
       for (String line : sentences) {
         switch (line.split("\\s+")[1]) {
         case "openphrase":
-
+          // System.out.println(line.split("\\s+")[0]);
           openphrase(line.split("\\s+")[0]);
           break;
         case "filelookup":
-
-
+          // System.out.println(line.split("\\s+")[0]);
+          // @TO.DO
           break;
         case "codded":
-          
-
+          // System.out.println(line.split("\\s+")[0]);
+          // @TO.DO
           break;
         default:
           System.out.println(
@@ -72,7 +72,7 @@ public class OpenPhrase {
                 this.windowSize = 1;
               else
                 this.windowSize = 2;
-
+              // System.out.println(tag+" -> "+line+" "+Integer.valueOf(index));
               String pattern = ""; String st2 = "";
               for(int i=0;i<words.length;i++){
                 if( i >= index - this.windowSize && i < index){
@@ -80,7 +80,7 @@ public class OpenPhrase {
                   st2 += words[i]+" ";
                 }
                 else if( i == index){
-                  pattern = pattern.trim();
+                  // pattern = pattern.trim();
                   pattern += ".*";
                   st2 += words[i]+" ";
                 }
@@ -92,9 +92,9 @@ public class OpenPhrase {
               st2 = st2.trim();
               pattern = pattern.trim();
 
-
-
-
+              // String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") +
+              // ".*" +
+              // words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
               boolean match = matchMe(".*" + pattern + ".*", this.st.replaceAll("\\{","#").replaceAll("\\}","@"));
               // System.out.println("Pat: "+pattern);
               // pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
@@ -103,7 +103,7 @@ public class OpenPhrase {
               if(match) {
                 System.out.println(match);
                 System.out.println(this.st);
-                String[] temp = this.st.split(" ", 0);
+                String[] temp = this.st.split("\\s+");
                 // System.out.println(this.st + "--" + pattern + "--" + st2);
 
                 this.st = replace(" "+this.st.replaceAll("\\{","#").replaceAll("\\}","@")+" ", "\\s+"+pattern+"\\s+", st2);
@@ -112,36 +112,49 @@ public class OpenPhrase {
 
                 System.out.println(this.st);
 
-
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
                 for (int i = 0; i < temp2.length; i++) {
                   if(!temp2[i].equals(temp[i])){
                     for(int j = i; j < temp.length; j++)  {
-                      repl += temp[j] + " ";
-
-                      if (i == temp2.length - 1) {
+                      
+                      System.out.println(repl);
+                      
+                      // if (i == temp2.length - 1) {
+                      //   continue;
+                      // }
+                      // if (i == temp2.length - 2) {
+                      //   if (temp[j + 1].equals(temp2[i + 1])) {
+                      //     break;
+                      //   }
+                      //   else
+                      //     continue;
+                      // }
+                      // if(temp2[i+1] == temp[j+1] && temp2[i+2] == temp[j+2])
+                      //   break; 
+                      if (i == temp2.length - 1) {  
+                        repl += temp[j] + " ";     
                         continue;
                       }
-                      if (i == temp2.length - 2) {
-                        if (temp[j + 1].equals(temp2[i + 1])) {
+                      if (temp[j].equals(temp2[i+1])) {
+                        if (j < temp.length - 2) {
+                          if (temp[j+1].equals(temp2[i+2])) {
+                            break;
+                          }
+                        }
+                        else{
                           break;
                         }
-                        else
-                          continue;
+                        
                       }
-                      if (this.windowSize > 1) {
-                        if (temp[j + 1].equals(temp2[i + 1]) && temp[j + 2].equals(temp2[i + 2])) {
-                        break;
-                      }
-                      }
+                      repl += temp[j] + " ";   
 
-
+                      
                     }
                     break;
-                  }
+                  } 
                 }
-
+                // System.out.println(repl);
                 ArrayList<String> temp_list = tagmap.get(tag);
                 temp_list.add(repl.trim());
                 tagmap.put(tag, temp_list);
@@ -156,62 +169,62 @@ public class OpenPhrase {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
+  // ************** IGNORE BELOW LINE *********
+  // dateTime
+  // day
+  // date
+  // number
+  // alarm_name
+  // note_name
+  // note_content
+  // src_event_name
+  // tgt_evemt_name
   /****************************
    Note: r for replace,
    and change the return type accordingly
   ***************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // // @TO.DO
+  // public void getAlarmName(String st) {
+  //
+  // }
+  //
+  // public void rAlarmName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getNoteName(String st) {
+  //
+  // }
+  //
+  // public void rNoteName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getNoteContent(String st) {
+  //
+  // }
+  //
+  // public void rNoteContent(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getSrcEventName(String st) {
+  //
+  // }
+  //
+  // public void rSrcEventName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getTgtEventName(String st) {
+  //
+  // }
+  //
+  // public void rTgtEventName(String st) {
+  //
+  // }
 }
