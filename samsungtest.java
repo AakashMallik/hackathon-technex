@@ -26,12 +26,22 @@ class samsungtest {
 			// DateTime placeholders are detected and replaced
 			st = ma.find_dateTime(pt);
 			HashMap<String, Set<String>> datetimeMap = ma.map;
-			System.out.println(datetimeMap);
+			for (String each: datetimeMap.keySet()) {
+				for (String item : datetimeMap.get(each)) {
+					System.out.println(each+" : "+item );
+				}
+			}
+
 
 			// Placeholders(excluding dateTime) are identified and replaced
 			st = pm.find_placeholder(st);
 			OpenPhrase op = new OpenPhrase(st);
-
+			HashMap<String, ArrayList<String>> tagmap = op.tagmap;
+			for (String each:tagmap.keySet() ) {
+				for (String item: tagmap.get(each)) {
+					System.out.println(each+" : "+item);
+				}
+			}
 			// Extra spaces are removed.
 			st = pre.rExtraSpaces(op.st);
 			// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.

@@ -89,8 +89,8 @@ public class DateTimePlaceholder {
       return replace(st, day, "<day>");
     } else if (isDate(st)) {
       return replace(st, date, "<date>");
-    } else if (isNum(st)) {
-      return replace(st, num_date, "<number>");
+    // } else if (isNum(st)) {
+      // return replace(st, num_date, "<number>");
     }
 
     return st;
