@@ -24,27 +24,33 @@ class samsungtest {
 		stList = concept_parser.generate_concept(st);
 
 		ArrayList<String> processed_string_list = new ArrayList<>();
+		Set<String> outputAttr = new HashSet<>();
 		for (String pt : stList) {
 			// DateTime placeholders are detected and replaced
 			st = ma.find_dateTime(pt);
 			HashMap<String, Set<String>> datetimeMap = ma.map;
 			for (String each: datetimeMap.keySet()) {
 				for (String item : datetimeMap.get(each)) {
-					System.out.println(each+" : "+item );
+					// System.out.println(each+" : "+item );
+					outputAttr.add(each+" : "+item);
 				}
 			}
-
-
-
 			// Placeholders(excluding dateTime) are identified and replaced
 			st = pm.find_placeholder(st);
-			System.out.println(pm.all_replacements);
+			for(String each : pm.all_replacements.keySet()){
+					for(String item: pm.all_replacements.get(each)){
+						// System.out.println(each+" : "+item);
+						outputAttr.add(each+" : "+item);
+					}
+			}
+			// System.out.println(pm.all_replacements);
 
 			OpenPhrase op = new OpenPhrase(st);
 			HashMap<String, ArrayList<String>> tagmap = op.tagmap;
 			for (String each:tagmap.keySet() ) {
 				for (String item: tagmap.get(each)) {
-					System.out.println(each+" : "+item);
+					// System.out.println(each+" : "+item);
+					outputAttr.add(each+" : "+item);
 				}
 			}
 			// Extra spaces are removed.
@@ -55,6 +61,10 @@ class samsungtest {
 		// System.out.println(processed_string_list);
 
 		st = grammarAnalyser.findGrammer(processed_string_list);
+		for (String each: outputAttr) {
+			System.out.println(each);
+		}
+		System.out.println();
 		// System.out.println(st);
 		return st;
 
