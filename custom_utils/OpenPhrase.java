@@ -59,7 +59,7 @@ public class OpenPhrase {
 
   private void openphrase(String tag) {
     ArrayList<String> fileList = fileRead.getFileList(new File("./resources/Grammar/"));
-    tagmap.put(tag, new ArrayList<String>());
+    // tagmap.put(tag, new ArrayList<String>());
     try {
 
       for(String fileName: fileList){
@@ -99,10 +99,10 @@ public class OpenPhrase {
               // System.out.println("Pat: "+pattern);
               // pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
               // pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
-              System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
+              // System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
-                System.out.println(match);
-                System.out.println(this.st);
+                // System.out.println(match);
+                // System.out.println(this.st);
                 String[] temp = this.st.split("\\s+");
                 // System.out.println(this.st + "--" + pattern + "--" + st2);
 
@@ -110,7 +110,7 @@ public class OpenPhrase {
                 this.st = this.st.trim().replaceAll("#", "\\{").replaceAll("@", "\\}");
 
 
-                System.out.println(this.st);
+                // System.out.println(this.st);
 
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
@@ -118,7 +118,7 @@ public class OpenPhrase {
                   if(!temp2[i].equals(temp[i])){
                     for(int j = i; j < temp.length; j++)  {
                       
-                      System.out.println(repl);
+                      // System.out.println(repl);
                       
                       // if (i == temp2.length - 1) {
                       //   continue;
@@ -155,9 +155,16 @@ public class OpenPhrase {
                   } 
                 }
                 // System.out.println(repl);
+
                 ArrayList<String> temp_list = tagmap.get(tag);
-                temp_list.add(repl.trim());
-                tagmap.put(tag, temp_list);
+                if(temp_list ==null)
+                  temp_list = new ArrayList<String>();
+                if (!repl.equals("")) {
+                  temp_list.add(repl.trim());
+                  tagmap.put(tag, temp_list);
+                }
+                
+                
 
               }
 

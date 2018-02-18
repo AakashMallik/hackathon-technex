@@ -176,6 +176,10 @@ public class PlaceholderMatch {
 						
 						String temp_str = str_list.get(i);
 
+						if (temp.split(" ", 0).length != name.split(" ", 0).length) {
+							continue;
+						}
+
 						str_list.set(i, "<contact_name>");
 						int c = i + 1;
 
