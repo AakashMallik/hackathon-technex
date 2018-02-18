@@ -11,7 +11,7 @@ public class DateTimePlaceholder {
   String num_hour = "([0]?[1-9]|1[0-2])"; // 2 digit clock hour
   String num_date = "([0]?[1-9]|[1-2][0-9]|3[0-1])"; // date 1 to 31
   String num_year = "([1-9]{1}[0-9]{3})"; // Year format
-  String day = "(today|tomorrow|sun(day)?|mon(day)?|tue(sday)?|wed(nesday)?|thu(rsday)?|fri(day)?|sat(urday)?)"; //any one day, where (sun == sunday), (mon == monday) so on.
+  String day = "(today|tomorrow|sun(day)?|monday|tue(sday)?|wed(nesday)?|thu(rsday)?|fri(day)?|sat(urday)?)"; //any one day, where (sun == sunday), (mon == monday) so on.
   String month = "(jan(uary)?|feb(ruary)?|march|april|may|june|july|aug(ust)?|sept(ember)?|oct(ober)?|nov(ember)?|dec(ember)?)"; // any one month, (jan == january) so on.
   String date1 = num_date + "(th|rd|st|nd)?\\s+" + month; // date format 1 (NUMBER MONTH) provided in docx: optional suffix to dates,(eg., 1st, 2nd, 3rd) included.
   String date2 = month + "\\s+" + num_date + "(th|rd|st|nd)?"; // date format 2 (MONTH NUMBER) provided in docx.

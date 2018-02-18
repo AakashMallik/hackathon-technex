@@ -1,49 +1,20 @@
-<<<<<<< HEAD
-CreateNoteWithNameAndContent
-case#1:
-CreateAlarmWithTime
-case#2:
-CreateNoteWithNameAndContent
-case#3:
-CreateAlarmByName
-case#4:
-CreateNoteWithNameAndContent
-case#5:
-CreateNoteWithNameAndContent
-case#6:
-WeatherInCity
-case#7:
-CreateNoteWithNameAndContent
-case#8:
-CreateNoteWithNameAndContent
-case#9:
-CreateNoteWithNameAndContent
-case#10:
-CreateNoteWithNameAndContent
-case#11:
-WeatherTimeCity
-case#12:
-CreateAlarmByName
-case#13:
-CreateNoteWithNameAndContent
-=======
 
 case#1:
 CreateAlarmWithTime
 case#2:
-CreateEventWithTimeAndPlace
+CreateEventWithTime
 case#3:
 CreateAlarmWithTime
 case#4:
 CallByName
 case#5:
-SendEmail
+CreateAlarmByName
 case#6:
 WeatherInCity
 case#7:
-WeatherTimeCity
-case#8:
 DateTimeNow
+case#8:
+DateTimeInPlace
 case#9:
 DateTimeNow
 case#10:
@@ -53,15 +24,10 @@ BookTicket
 case#12:
 CreateAlarmByName
 case#13:
-CreateAlarmByName
->>>>>>> dc33c829dbcefaba98a93ea3e431f39a5a683105
+
 case#14:
 CreateNoteWithNameAndContent
 case#15:
 CreateNoteWithNameAndContent
 case#16:
-<<<<<<< HEAD
-CreateNoteWithNameAndContent
-=======
 RenameEvent
->>>>>>> dc33c829dbcefaba98a93ea3e431f39a5a683105

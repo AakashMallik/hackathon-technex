@@ -61,7 +61,7 @@ public class OpenPhrase {
     ArrayList<String> fileList = fileRead.getFileList(new File("./resources/Grammar/"));
 
     try {
-<<<<<<< HEAD
+
       for(String fileName: fileList){
         ArrayList<String> sentences = fileRead.readFileAsLine(new File("./resources/Grammar/"+fileName));
         for(String line : sentences) {
@@ -72,47 +72,28 @@ public class OpenPhrase {
               String pattern = "";
               for(int i=0;i<words.length;i++){
                 if( i >= index - this.windowSize && i < index)
-                  pattern += words[i].replaceAll("\\{","\\\\\\{").replaceAll("\\}","\\\\\\}");
+                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@");
                 else if( i == index)
                   pattern += ".*";
                 else if(i > index && i <= index + this.windowSize)
-                  pattern += words[i].replaceAll("\\{","\\\\\\{").replaceAll("\\}","\\\\\\}");
+                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@");
               }
 
               // String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") +
               // ".*" +
               // words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
-              System.out.println("Pat: "+pattern);
               boolean match = matchMe(".*" + pattern + ".*", this.st);
-              // System.out.println(words[Math.max(index-1,0)]+" * "+words[Math.min(words.length-1,index+1)]+"\t\t\t"+match);
+              pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
+              pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
+              System.out.println("Pat: "+pattern+"\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
-                pattern = replace(pattern, "\\{[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}\\}"," ");
-                this.st = replace(this.st, pattern, tag);
+                this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", tag);
                 System.out.println(this.st);
               }
-=======
-      for (String fileName : fileList) {
-        ArrayList<String> sentences = fileRead.readFileAsLine(new File("./resources/Grammar/" + fileName));
-        for (String line : sentences) {
-          String[] words = line.split("\\s+");
-          if (matchMe(".*" + tag + ".*", line)) {
-            int index = Arrays.asList(words).indexOf(tag);
-            // System.out.println(tag+" -> "+line+" "+Integer.valueOf(index));
-            String pattern = words[Math.max(index - 1, 0)].replaceAll("\\{", "\\\\\\{").replaceAll("//}", "//////}")
-                + ".*" + words[Math.min(words.length - 1, index + 1)].replaceAll("\\{", "\\\\\\{").replaceAll("//}",
-                    "//////}");
 
-            boolean match = matchMe(".*" + pattern + ".*", this.st);
-            // System.out.println(words[Math.max(index-1,0)]+" * "+words[Math.min(words.length-1,index+1)]+"\t\t\t"+match);
-            if (match) {
-              this.st = replace(this.st, pattern, tag);
-              // System.out.println(this.st);
->>>>>>> dc33c829dbcefaba98a93ea3e431f39a5a683105
             }
           }
         }
-
-      }
     } catch (Exception e) {
       System.out.println("Error reported" + e);
     }
@@ -132,48 +113,48 @@ public class OpenPhrase {
    Note: r for replace,
    and change the return type accordingly
   ***************************/
-  // @TO.DO
-  public void getAlarmName(String st) {
-
-  }
-
-  public void rAlarmName(String st) {
-
-  }
-
-  // @TO.DO
-  public void getNoteName(String st) {
-
-  }
-
-  public void rNoteName(String st) {
-
-  }
-
-  // @TO.DO
-  public void getNoteContent(String st) {
-
-  }
-
-  public void rNoteContent(String st) {
-
-  }
-
-  // @TO.DO
-  public void getSrcEventName(String st) {
-
-  }
-
-  public void rSrcEventName(String st) {
-
-  }
-
-  // @TO.DO
-  public void getTgtEventName(String st) {
-
-  }
-
-  public void rTgtEventName(String st) {
-
-  }
+  // // @TO.DO
+  // public void getAlarmName(String st) {
+  //
+  // }
+  //
+  // public void rAlarmName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getNoteName(String st) {
+  //
+  // }
+  //
+  // public void rNoteName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getNoteContent(String st) {
+  //
+  // }
+  //
+  // public void rNoteContent(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getSrcEventName(String st) {
+  //
+  // }
+  //
+  // public void rSrcEventName(String st) {
+  //
+  // }
+  //
+  // // @TO.DO
+  // public void getTgtEventName(String st) {
+  //
+  // }
+  //
+  // public void rTgtEventName(String st) {
+  //
+  // }
 }
