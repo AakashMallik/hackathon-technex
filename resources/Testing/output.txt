@@ -7,8 +7,8 @@ CreateEventWithTimeAndPlace
 <place> : bangalore
 <dateTime> : 30 pm 
 case#3:
-CreateAlarmWithTime
-<alarm_name> : 
+CreateAlarmByName
+<alarm_name> : a team lunch alarm at <datetime>
 <dateTime> :  11 am tomorrow
 case#4:
 CallByName
@@ -36,16 +36,21 @@ BookTicket
 <place> : varanasi
 case#12:
 CreateAlarmByName
-<alarm_name> : 
 <dateTime> :  5 am tomorrow
+<alarm_name> : {create_concept} body alarm
 case#13:
 CreateAlarmByName
 <dateTime> :  8 am tomorrow
-<alarm_name> : 
+<alarm_name> : go to {book_concept} money {create_concept} <alarm_name> alarm at <datetime>
+<alarm_name> : go to {create_concept} <alarm_name> alarm at <datetime>
+<alarm_name> : go to {call_concept} money {create_concept} <alarm_name> alarm at <datetime>
+<alarm_name> : money {create_concept} a alarm at <datetime>
+<alarm_name> : money {book_concept} a alarm at <datetime>
+<alarm_name> : a alarm at <datetime>
 case#14:
 CreateAlarmByName
+<note_name> : shopping list
 <note_content> : milk egg butter
-<note_name> : 
 case#15:
 CreateNoteWithNameAndContent
 <note_name> : trip expanse
@@ -53,4 +58,4 @@ CreateNoteWithNameAndContent
 case#16:
 RenameEvent
 <tgt_event_name> : monkey in market
-<src_event_name> : 
+<src_event_name> : fruit and juice

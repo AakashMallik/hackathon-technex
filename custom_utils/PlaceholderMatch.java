@@ -18,7 +18,7 @@ public class PlaceholderMatch {
 	int max_len_place = 0;
 
 	public PlaceholderMatch() {
-		
+		// System.out.println("Constructor called");
 		read_contents();
 
 		ArrayList<String> arraylist = new ArrayList<String>();
@@ -29,14 +29,14 @@ public class PlaceholderMatch {
 	}
 
 	public void read_contents() {
-		
+		// Read all names
 		BufferedReader reader;
 		String[] arr_of_str;
 		try {
 			reader = new BufferedReader(new FileReader(names_path));
 			String line = reader.readLine();
 			while (line != null) {
-				
+				// System.out.println(line);
 
 				line = line.toLowerCase();
 				all_names.add(line.trim());
@@ -47,36 +47,36 @@ public class PlaceholderMatch {
 
 				max_len_name = Math.max(arr_of_str.length, max_len_name);
 
-				
+				// read next line
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		// System.out.println(all_names);
 
-		
+		// Now get placess names
 		try {
 			reader = new BufferedReader(new FileReader(places_path));
 			String line = reader.readLine();
 			while (line != null) {
-				
+				// System.out.println(line);
 
 				line = line.toLowerCase();
 				all_places.add(line.trim());
 				arr_of_str = line.split(" ", 0);
-				
-				
-				
+				// for (String str : arr_of_str) {
+				// 	all_places.add(str);
+				// }
 				max_len_place = Math.max(arr_of_str.length, max_len_place);
 
-				
+				// read next line
 				line = reader.readLine();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		// System.out.println(all_places);
 
 		return;
 	}
@@ -94,8 +94,8 @@ public class PlaceholderMatch {
 		}
 
 		int matches = 0;
-		int prefix_match = 0; 
-		int transpositions = 0; 
+		int prefix_match = 0; // at most 4 characters
+		int transpositions = 0; // characters that match but are not aligned, only close to each other
 
 		int max_length = Math.max(a.length(), b.length());
 		int max_match_distance = Math.max((int) Math.floor(max_length / 2.0) - 1, 0);
@@ -108,7 +108,7 @@ public class PlaceholderMatch {
 
 		for (int i = 0; i < shorter.length(); i++) {
 
-			
+			// Find a match
 			boolean match_bool = shorter.charAt(i) == longer.charAt(i);
 
 			if (match_bool && i < 4) {
@@ -116,7 +116,7 @@ public class PlaceholderMatch {
 			}
 			if (match_bool) {
 				matches++;
-				continue; 
+				continue; // Go to next character
 			}
 
 			int j = Math.max(i - max_match_distance, 0);
@@ -132,7 +132,7 @@ public class PlaceholderMatch {
 		}
 
 		if (matches == 0)
-			return 0; 
+			return 0; // No need to progress ahead
 		transpositions = (int) (transpositions / 2.0);
 
 		double jaro_score = (1.0 / 3) * (matches / (double) longer.length() + matches / (double) shorter.length()
@@ -141,13 +141,13 @@ public class PlaceholderMatch {
 			return jaro_score;
 
 		double score = jaro_score + prefix_match * 0.1 * (1.0 - jaro_score);
-		
-		return score; 
+		// standard p value = 0.1 (consult wikipedia)
+		return score; // higher score == more simialarity
 	}
 
 	public String find_placeholder(String s) {
-		
-		
+		// System.out.println(jaro_winkler_dist("Delhi", "New Delhi"));
+		// return "Hello";
 		boolean flag = false;
 
 		s = s.toLowerCase();
@@ -159,7 +159,7 @@ public class PlaceholderMatch {
 			str_list.add(str);
 		}
 
-		
+		// First we check for names
 		for (int l = max_len_name; l > 0; l--) {
 			for (int i = 0; i < str_list.size(); i++) {
 				int j = Math.min(i + l - 1, str_list.size() - 1);
@@ -173,7 +173,7 @@ public class PlaceholderMatch {
 				for (String name : all_names) {
 					double similarity_score = jaro_winkler_dist(temp, name);
 					if (similarity_score > 0.85) {
-						
+						// Match
 						String temp_str = str_list.get(i);
 
 						str_list.set(i, "<contact_name>");
@@ -195,23 +195,23 @@ public class PlaceholderMatch {
 					for (String name : all_names_individual) {
 						double similarity_score = jaro_winkler_dist(temp, name);
 						if (similarity_score > 0.85) {
-							
+							// Match
 							str_list.set(i, "<contact_name>");
 							flag = true;
 							break;
 						}
 					}
 				}
-				
-				
-				
+				// if(flag){
+				// 	break;
+				// }
 			}
-			
-			
-			
+			// if(flag){
+			// 	break;
+			// }
 		}
-		
-		
+		// System.out.println(str_list);
+		// Now for places
 		flag = false;
 		for (int l = max_len_place; l > 0; l--) {
 			for (int i = 0; i < str_list.size(); i++) {
@@ -225,8 +225,8 @@ public class PlaceholderMatch {
 
 				flag = false;
 				for (String name : all_places) {
-					
-					
+					// if (name == "varanasi")
+					// 	System.out.println(str_list.get(i));
 					double similarity_score = jaro_winkler_dist(temp, name);
 
 					if(temp.split(" ", 0).length > 1)
@@ -237,9 +237,9 @@ public class PlaceholderMatch {
 						if (temp.split(" ", 0).length != name.split(" ", 0).length) {
 							continue;
 						}
-						
+						// System.out.println(similarity_score);
 						String temp_str = str_list.get(i);
-						
+						// Match
 						str_list.set(i, "<place>");
 						int c = i + 1;
 						while (c <= j) {
@@ -256,24 +256,24 @@ public class PlaceholderMatch {
 						break;
 					}
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+				// if(l == 1){
+				// 	for (String name : all_names_individual) {
+				// 		double similarity_score = jaro_winkler_dist(temp, name);
+				// 		if(similarity_score > 0.85){
+				// 			// Match
+				// 			str_list.set(i, "<contact_name>");
+				// 			flag = true;
+				// 			break;
+				// 		}
+				// 	}
+				// }
+				// if(flag){
+				// 	break;
+				// }
 			}
-			
-			
-			
+			// if(flag){
+			// 	break;
+			// }
 		}
 
 		String final_answer = "";
@@ -285,9 +285,9 @@ public class PlaceholderMatch {
 		return final_answer.trim();
 	}
 
-	
-	
-	
-	
+	// public  void main(String[] args) {
+	// 	// Read all contents first
+	//
+	// }
 
 }

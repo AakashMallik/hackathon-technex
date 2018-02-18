@@ -22,17 +22,15 @@ public class OpenPhrase {
       for (String line : sentences) {
         switch (line.split("\\s+")[1]) {
         case "openphrase":
-
           openphrase(line.split("\\s+")[0]);
           break;
+
         case "filelookup":
-
-
           break;
+
         case "codded":
-          
-
           break;
+
         default:
           System.out.println(
               "\nNo Match check :\\ PlaceHolderDetail.txt for more:\nError in OpenPhrase class > switch statement\n");
@@ -59,7 +57,7 @@ public class OpenPhrase {
 
   private void openphrase(String tag) {
     ArrayList<String> fileList = fileRead.getFileList(new File("./resources/Grammar/"));
-    tagmap.put(tag, new ArrayList<String>());
+    // tagmap.put(tag, new ArrayList<String>());
     try {
 
       for(String fileName: fileList){
@@ -92,25 +90,20 @@ public class OpenPhrase {
               st2 = st2.trim();
               pattern = pattern.trim();
 
-
-
-
               boolean match = matchMe(".*" + pattern + ".*", this.st.replaceAll("\\{","#").replaceAll("\\}","@"));
-              // System.out.println("Pat: "+pattern);
-              // pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
-              // pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
-              System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
+
+              //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
-                System.out.println(match);
-                System.out.println(this.st);
+                //System.out.println(match);
+                //System.out.println(this.st);
                 String[] temp = this.st.split(" ", 0);
-                // System.out.println(this.st + "--" + pattern + "--" + st2);
+
 
                 this.st = replace(" "+this.st.replaceAll("\\{","#").replaceAll("\\}","@")+" ", "\\s+"+pattern+"\\s+", st2);
                 this.st = this.st.trim().replaceAll("#", "\\{").replaceAll("@", "\\}");
 
 
-                System.out.println(this.st);
+                //System.out.println(this.st);
 
 
                 String[] temp2 = this.st.split(" ", 0);
@@ -135,14 +128,14 @@ public class OpenPhrase {
                         break;
                       }
                       }
-
-
                     }
                     break;
                   }
                 }
 
                 ArrayList<String> temp_list = tagmap.get(tag);
+                if(temp_list ==null)
+                  temp_list = new ArrayList<String>();
                 temp_list.add(repl.trim());
                 tagmap.put(tag, temp_list);
 

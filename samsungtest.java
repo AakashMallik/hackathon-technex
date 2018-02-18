@@ -72,12 +72,8 @@ class samsungtest {
 	public static void main(String[] args) {
 
 
-
-
-
-
 		FileRead fileread = new FileRead();
-		
+
 		try {
 			PrintWriter writer = new PrintWriter("./resources/Testing/output.txt", "UTF-8");
 			ArrayList<String> sentences = fileread.readFileAsLine(new File("./resources/Testing/input.txt"));
