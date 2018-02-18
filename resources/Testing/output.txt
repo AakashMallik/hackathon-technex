@@ -4,7 +4,7 @@ CreateAlarmWithTime
 case#2:
 CreateEventWithTimeAndPlace
 case#3:
-CreateAlarmWithTime
+CreateAlarmByName
 case#4:
 CallByName
 case#5:
@@ -14,7 +14,7 @@ WeatherInCity
 case#7:
 WeatherTimeCity
 case#8:
-DateTimeInPlace
+DateTimeNow
 case#9:
 DateTimeNow
 case#10:
@@ -22,7 +22,7 @@ DateTimeNow
 case#11:
 BookTicket
 case#12:
-CreateAlarmWithTime
+CreateAlarmByName
 case#13:
 CreateAlarmByName
 case#14:

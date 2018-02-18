@@ -10,7 +10,7 @@ import java.util.regex.*;
 public class OpenPhrase {
   public String st;
   public int windowSize = 1;
-  HashMap<String, ArrayList<String>> tagmap = new HashMap<String, ArrayList<String>>();
+  public HashMap<String, ArrayList<String>> tagmap = new HashMap<String, ArrayList<String>>();
   FileRead fileRead = new FileRead();
 
   // constructor
@@ -59,7 +59,7 @@ public class OpenPhrase {
 
   private void openphrase(String tag) {
     ArrayList<String> fileList = fileRead.getFileList(new File("./resources/Grammar/"));
-
+    tagmap.put(tag, new ArrayList<String>());
     try {
 
       for(String fileName: fileList){
@@ -100,8 +100,29 @@ public class OpenPhrase {
               pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
               //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
+                String[] temp = this.st.split(" ", 0);
                 this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", st2);
+                this.st = this.st.trim();
                 //System.out.println(this.st);
+
+                String[] temp2 = this.st.split(" ", 0);
+                String repl = "";
+                for (int i = 0; i < temp2.length; i++) {
+                  if(!temp2[i].equals(temp[i])){
+                    for(int j = i; j < temp2.length; j++)  {
+                      repl += temp[j] + " ";
+                      if (temp[j + 1].equals(temp2[i + 1]) && temp[j + 2].equals(temp2[i + 2])) {
+                        break;
+                      }
+                    }
+                    break;
+                  } 
+                }
+                // System.out.println(repl);
+                ArrayList<String> temp_list = tagmap.get(tag);
+                temp_list.add(repl.trim());
+                tagmap.put(tag, temp_list);
+
               }
 
             }

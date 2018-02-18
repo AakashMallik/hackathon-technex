@@ -38,6 +38,7 @@ class samsungtest {
 			processed_string_list.add(st);
 		}
 		System.out.println(processed_string_list);
+
 		st = grammarAnalyser.findGrammer(processed_string_list);
 		// System.out.println(st);
 		return st;

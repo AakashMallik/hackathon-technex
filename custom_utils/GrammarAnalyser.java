@@ -148,7 +148,7 @@ public class GrammarAnalyser {
 				output = file;
 			}
 		}
-		System.out.println(senVsGram.get(output));
+		// System.out.println(senVsGram.get(output));
 		return output;
 	}
 }
