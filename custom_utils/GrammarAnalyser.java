@@ -142,7 +142,7 @@ public class GrammarAnalyser {
 		Double max = Double.MIN_VALUE;
 		String output = "";
 		for (String file : fileVsScore.keySet()) {
-			System.out.println(file + " : " + fileVsScore.get(file));
+			// System.out.println(file + " : " + fileVsScore.get(file));
 			if (max < fileVsScore.get(file)) {
 				max = fileVsScore.get(file);
 				output = file;
