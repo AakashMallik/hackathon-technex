@@ -26,7 +26,7 @@ CreateAlarmByName
 case#13:
 CreateAlarmByName
 case#14:
-CreateNoteWithNameAndContent
+CreateAlarmByName
 case#15:
 CreateNoteWithNameAndContent
 case#16:
