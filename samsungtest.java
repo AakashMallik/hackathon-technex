@@ -63,7 +63,7 @@ class samsungtest {
 
 		st = grammarAnalyser.findGrammer(processed_string_list);
 
-		System.out.println();
+		// System.out.println();
 
 		return st;
 
@@ -93,7 +93,7 @@ class samsungtest {
 					System.out.println("w: "+each);
 				}
 
-
+				System.out.println();
 			}
 			writer.close();
 		} catch (Exception e) {

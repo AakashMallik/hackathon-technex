@@ -8,7 +8,7 @@ CreateEventWithTimeAndPlace
 <dateTime> : 30 pm 
 case#3:
 CreateAlarmByName
-<alarm_name> : a team lunch alarm at <datetime>
+<alarm_name> : a team lunch
 <dateTime> :  11 am tomorrow
 case#4:
 CallByName
@@ -24,7 +24,6 @@ WeatherTimeCity
 <place> : bangalore
 case#8:
 DateTimeNow
-<note_name> : 
 case#9:
 DateTimeNow
 case#10:
@@ -37,16 +36,16 @@ BookTicket
 case#12:
 CreateAlarmByName
 <dateTime> :  5 am tomorrow
-<alarm_name> : {create_concept} body alarm
+<alarm_name> : body
 case#13:
 CreateAlarmByName
 <dateTime> :  8 am tomorrow
-<alarm_name> : go to {book_concept} money {create_concept} <alarm_name> alarm at <datetime>
-<alarm_name> : go to {create_concept} <alarm_name> alarm at <datetime>
-<alarm_name> : go to {call_concept} money {create_concept} <alarm_name> alarm at <datetime>
-<alarm_name> : money {create_concept} a alarm at <datetime>
-<alarm_name> : money {book_concept} a alarm at <datetime>
-<alarm_name> : a alarm at <datetime>
+<alarm_name> : go to
+<alarm_name> : go to {book_concept} money
+<alarm_name> : money {book_concept} a
+<alarm_name> : money {create_concept} a
+<alarm_name> : go to {call_concept} money
+<alarm_name> : a
 case#14:
 CreateAlarmByName
 <note_name> : shopping list
