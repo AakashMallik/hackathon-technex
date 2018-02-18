@@ -100,6 +100,9 @@ public class PlaceholderMatch {
 		int max_length = Math.max(a.length(), b.length());
 		int max_match_distance = Math.max((int) Math.floor(max_length / 2.0) - 1, 0);
 
+		if(!winkler)
+			max_match_distance = max_length;
+
 		String shorter = a.length() < b.length() ? a : b;
 		String longer = a.length() >= b.length() ? a : b;
 

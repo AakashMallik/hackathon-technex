@@ -89,9 +89,15 @@ public class DateTimePlaceholder {
       return replace(st, day, "<day>");
     } else if (isDate(st)) {
       return replace(st, date, "<date>");
+<<<<<<< HEAD
     // } else if (isNum(st)) {
       // return replace(st, num_date, "<number>");
+=======
+>>>>>>> 12b87924af4e10efc123fd06532808cdfe86fa41
     }
+    // } else if (isNum(st)) {
+    //   return replace(st, num_date, "<number>");
+    // }
 
     return st;
   }

@@ -17,6 +17,8 @@ class samsungtest {
 		// Extra spaces are removed
 		st = pre.rExtraSpaces(st);
 
+		String st_orig = st;
+
 		ArrayList<String> stList = new ArrayList<>();
 		// concepts are replaced as stated in Concept/*.txt files
 		stList = concept_parser.generate_concept(st);
@@ -33,8 +35,11 @@ class samsungtest {
 			}
 
 
+
 			// Placeholders(excluding dateTime) are identified and replaced
 			st = pm.find_placeholder(st);
+			System.out.println(pm.all_replacements);
+
 			OpenPhrase op = new OpenPhrase(st);
 			HashMap<String, ArrayList<String>> tagmap = op.tagmap;
 			for (String each:tagmap.keySet() ) {
@@ -47,7 +52,7 @@ class samsungtest {
 			// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
 			processed_string_list.add(st);
 		}
-		System.out.println(processed_string_list);
+		// System.out.println(processed_string_list);
 
 		st = grammarAnalyser.findGrammer(processed_string_list);
 		// System.out.println(st);

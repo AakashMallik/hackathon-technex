@@ -101,19 +101,34 @@ public class OpenPhrase {
               //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
                 String[] temp = this.st.split(" ", 0);
+                // System.out.println(this.st);
                 this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", st2);
                 this.st = this.st.trim();
-                //System.out.println(this.st);
 
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
                 for (int i = 0; i < temp2.length; i++) {
                   if(!temp2[i].equals(temp[i])){
-                    for(int j = i; j < temp2.length; j++)  {
+                    for(int j = i; j < temp.length; j++)  {
                       repl += temp[j] + " ";
-                      if (temp[j + 1].equals(temp2[i + 1]) && temp[j + 2].equals(temp2[i + 2])) {
+                      
+                      if (i == temp2.length - 1) {
+                        continue;
+                      }
+                      if (i == temp2.length - 2) {
+                        if (temp[j + 1].equals(temp2[i + 1])) {
+                          break;
+                        }
+                        else
+                          continue;
+                      }
+                      if (this.windowSize > 1) {
+                        if (temp[j + 1].equals(temp2[i + 1]) && temp[j + 2].equals(temp2[i + 2])) {
                         break;
                       }
+                      }
+                      
+                      
                     }
                     break;
                   } 
