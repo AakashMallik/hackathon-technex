@@ -68,27 +68,40 @@ public class OpenPhrase {
             String[] words = line.split("\\s+");
             if(matchMe(".*"+tag+".*",line)){
               int index = Arrays.asList(words).indexOf(tag);
+              if(tag.equals("<alarm_name>") && index != words.length-1)
+                this.windowSize = 1;
+              else
+                this.windowSize = 2;
               // System.out.println(tag+" -> "+line+" "+Integer.valueOf(index));
-              String pattern = "";
+              String pattern = ""; String st2 = "";
               for(int i=0;i<words.length;i++){
-                if( i >= index - this.windowSize && i < index)
-                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@");
-                else if( i == index)
+                if( i >= index - this.windowSize && i < index){
+                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@")+" ";
+                  st2 += words[i]+" ";
+                }
+                else if( i == index){
                   pattern += ".*";
-                else if(i > index && i <= index + this.windowSize)
-                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@");
+                  st2 += words[i]+" ";
+                }
+                else if(i > index && i <= index + this.windowSize){
+                  pattern += words[i].replaceAll("\\{","#").replaceAll("\\}","@")+" ";
+                  st2 += words[i]+" ";
+                }
               }
+              st2 = st2.trim();
+              pattern = pattern.trim();
 
               // String pattern = words[Math.max(index-1,0)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}") +
               // ".*" +
               // words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
-              boolean match = matchMe(".*" + pattern + ".*", this.st);
+              boolean match = matchMe(".*" + pattern + ".*", this.st.replaceAll("\\{","#").replaceAll("\\}","@"));
+              // System.out.println("Pat: "+pattern);
               pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
               pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
-              System.out.println("Pat: "+pattern+"\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
+              //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
-                this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", tag);
-                System.out.println(this.st);
+                this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", st2);
+                //System.out.println(this.st);
               }
 
             }

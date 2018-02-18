@@ -97,6 +97,7 @@ public class GrammarAnalyser {
 
 	public String findGrammer(ArrayList<String> sentenseList) {
 		HashMap<String, Double> fileVsScore = new HashMap<>();
+		HashMap<String, String> senVsGram = new HashMap<>();
 		for (String sentense : sentenseList) {
 			String[] tokenArray = sentense.split("\\s+");
 
@@ -135,6 +136,7 @@ public class GrammarAnalyser {
 				localMax = -1000.0;
 			}
 			fileVsScore.put(globalMaxFile, globalMax);
+			senVsGram.put(globalMaxFile,sentense);
 		}
 
 		Double max = Double.MIN_VALUE;
@@ -146,6 +148,7 @@ public class GrammarAnalyser {
 				output = file;
 			}
 		}
+		System.out.println(senVsGram.get(output));
 		return output;
 	}
 }
