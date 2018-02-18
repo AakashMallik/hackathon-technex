@@ -7,6 +7,7 @@ import java.math.*;
 import java.util.regex.*;
 
 public class DateTimePlaceholder {
+  public HashMap<String, Set<String>> map = new HashMap< String, Set<String>>();
 
   String num_hour = "([0]?[1-9]|1[0-2])"; // 2 digit clock hour
   String num_date = "([0]?[1-9]|[1-2][0-9]|3[0-1])"; // date 1 to 31
@@ -67,6 +68,16 @@ public class DateTimePlaceholder {
   String replace(String st, String pat, String placeHolder) {
     Pattern pattern = Pattern.compile(pat, Pattern.CASE_INSENSITIVE);
     Matcher matcher = pattern.matcher(st);
+    while(matcher.find()){
+      // System.out.println(placeHolder + " "+ st.subSequence(matcher.start(),matcher.end()));
+      Set<String> temp = map.get(placeHolder);
+      if(temp == null)
+      temp = new HashSet<String>();
+
+      temp.add(st.subSequence(matcher.start(),matcher.end()).toString());
+
+      map.put(placeHolder,temp);
+    }
     st = matcher.replaceAll(" " + placeHolder + " ");
     return st;
   }

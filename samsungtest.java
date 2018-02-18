@@ -20,30 +20,28 @@ class samsungtest {
 		ArrayList<String> stList = new ArrayList<>();
 		// concepts are replaced as stated in Concept/*.txt files
 		stList = concept_parser.generate_concept(st);
-		// System.out.println(stList);
 
 		ArrayList<String> processed_string_list = new ArrayList<>();
 		for (String pt : stList) {
-			// // DateTime placeholders are detected and replaced
+			// DateTime placeholders are detected and replaced
 			st = ma.find_dateTime(pt);
-			// // Placeholders(excluding dateTime) are identified and replaced
+			HashMap<String, Set<String>> datetimeMap = ma.map;
+			System.out.println(datetimeMap);
+
+			// Placeholders(excluding dateTime) are identified and replaced
 			st = pm.find_placeholder(st);
-			// System.out.println(st);
-			// // ----------------------------------------------
 			OpenPhrase op = new OpenPhrase(st);
 
-			// // ----------------------------------------------
-			// // Extra spaces are removed.
+			// Extra spaces are removed.
 			st = pre.rExtraSpaces(op.st);
-			// // The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
-			// // System.out.println("Grammar:\t"+st); // Uncomment this to see input converted to grammar.
-			// System.out.println(st);
+			// The output(result) in the form of commands(Grammar file names) are returned based on the grammar string obtained from above processes.
 			processed_string_list.add(st);
 		}
 		System.out.println(processed_string_list);
 		st = grammarAnalyser.findGrammer(processed_string_list);
 		// System.out.println(st);
 		return st;
+
 	}
 
 	public static void main(String[] args) {
