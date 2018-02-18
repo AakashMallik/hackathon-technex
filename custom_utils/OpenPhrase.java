@@ -80,6 +80,7 @@ public class OpenPhrase {
                   st2 += words[i]+" ";
                 }
                 else if( i == index){
+                  // pattern = pattern.trim();
                   pattern += ".*";
                   st2 += words[i]+" ";
                 }
@@ -96,14 +97,20 @@ public class OpenPhrase {
               // words[Math.min(words.length-1,index+1)].replaceAll("\\{","\\\\\\{").replaceAll("//}","//////}");
               boolean match = matchMe(".*" + pattern + ".*", this.st.replaceAll("\\{","#").replaceAll("\\}","@"));
               // System.out.println("Pat: "+pattern);
-              pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
-              pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
-              //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
+              // pattern = replace(pattern, "#[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}@"," ");
+              // pattern = replace(pattern, "<[0-9a-zA-Z]+(_){0,1}[0-9a-zA-Z]{0,100}>"," ").trim();
+              System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
+                System.out.println(match);
+                System.out.println(this.st);
                 String[] temp = this.st.split(" ", 0);
-                // System.out.println(this.st);
-                this.st = replace(" "+this.st+" ", "\\s+"+pattern+"\\s+", st2);
-                this.st = this.st.trim();
+                // System.out.println(this.st + "--" + pattern + "--" + st2);
+
+                this.st = replace(" "+this.st.replaceAll("\\{","#").replaceAll("\\}","@")+" ", "\\s+"+pattern+"\\s+", st2);
+                this.st = this.st.trim().replaceAll("#", "\\{").replaceAll("@", "\\}");
+
+
+                System.out.println(this.st);
 
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
