@@ -92,7 +92,6 @@ public class OpenPhrase {
 
               boolean match = matchMe(".*" + pattern + ".*", this.st.replaceAll("\\{","#").replaceAll("\\}","@"));
 
-              //System.out.println("\t\t"+match+"\t"+"\\s+"+pattern+"\\s+");
               if(match) {
                 // System.out.println(match);
                 // System.out.println(this.st);
@@ -103,16 +102,11 @@ public class OpenPhrase {
                 this.st = this.st.trim().replaceAll("#", "\\{").replaceAll("@", "\\}");
 
 
-                // System.out.println(this.st);
-
                 String[] temp2 = this.st.split(" ", 0);
                 String repl = "";
                 for (int i = 0; i < temp2.length; i++) {
                   if(!temp2[i].equals(temp[i])){
                     for(int j = i; j < temp.length; j++)  {
-
-                      // System.out.println(repl);
-
                       // if (i == temp2.length - 1) {
                       //   continue;
                       // }
@@ -152,12 +146,12 @@ public class OpenPhrase {
                 ArrayList<String> temp_list = tagmap.get(tag);
                 if(temp_list ==null)
                   temp_list = new ArrayList<String>();
+
                 if (!repl.equals("")) {
                   temp_list.add(repl.trim());
                   tagmap.put(tag, temp_list);
                 }
-
-
+                
 
               }
 
@@ -178,7 +172,7 @@ public class OpenPhrase {
   // note_name
   // note_content
   // src_event_name
-  // tgt_evemt_name
+  // tgt_evemt_name 
   /****************************
    Note: r for replace,
    and change the return type accordingly

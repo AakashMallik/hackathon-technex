@@ -1,27 +1,18 @@
 
 case#1:
 CreateAlarmWithTime
-<dateTime> : tomorrow 9 o clock 
 case#2:
 CreateEventWithTimeAndPlace
-<place> : bangalore
-<dateTime> : 30 pm 
 case#3:
 CreateAlarmByName
-<alarm_name> : a team lunch
-<dateTime> :  11 am tomorrow
 case#4:
 CallByName
 case#5:
 SendEmail
-<contact_name> : rahul dravid
 case#6:
 WeatherInCity
-<place> : new york
 case#7:
 WeatherTimeCity
-<dateTime> :  6 am tomorrow
-<place> : bangalore
 case#8:
 DateTimeNow
 case#9:
@@ -30,31 +21,13 @@ case#10:
 DateTimeNow
 case#11:
 BookTicket
-<date> : 14 february
-<place> : bangalore
-<place> : varanasi
 case#12:
 CreateAlarmByName
-<dateTime> :  5 am tomorrow
-<alarm_name> : body
 case#13:
 CreateAlarmByName
-<dateTime> :  8 am tomorrow
-<alarm_name> : go to
-<alarm_name> : go to {book_concept} money
-<alarm_name> : money {book_concept} a
-<alarm_name> : money {create_concept} a
-<alarm_name> : go to {call_concept} money
-<alarm_name> : a
 case#14:
 CreateAlarmByName
-<note_name> : shopping list
-<note_content> : milk egg butter
 case#15:
 CreateNoteWithNameAndContent
-<note_name> : trip expanse
-<note_content> : 100 dollar for patrol
 case#16:
 RenameEvent
-<tgt_event_name> : monkey in market
-<src_event_name> : fruit and juice

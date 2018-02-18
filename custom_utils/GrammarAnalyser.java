@@ -49,7 +49,7 @@ class GrammarEncoder {
 				String symbol = grammarSymbolList_tf.get(grammar).get(token.toLowerCase());
 				// if(symbol.charAt(0) == 'F')
 				// System.out.println(token);
-				for (int i = 0; i < Math.ceil(1 * tf * idf); i++) {
+				for (int i = 0; i < Math.ceil(tf * idf); i++) {
 					code.append(symbol);
 				}
 			}
@@ -65,6 +65,8 @@ public class GrammarAnalyser {
 	private ArrayList<String> fileList;
 	HashMap<String, ArrayList<String>> encodedGrammarList;
 	GrammarEncoder grammarEncoder;
+
+	public String orig = "";
 
 	public GrammarAnalyser() {
 		// list all files in concept folder
@@ -95,10 +97,13 @@ public class GrammarAnalyser {
 		}
 	}
 
-	public String findGrammer(ArrayList<String> sentenseList) {
+	public String findGrammer(ArrayList<String> sentenseList, ArrayList<String> sentenseList_1) {
 		HashMap<String, Double> fileVsScore = new HashMap<>();
 		HashMap<String, String> senVsGram = new HashMap<>();
+
+		int i = 0;
 		for (String sentense : sentenseList) {
+			String sentense_1 = (sentenseList_1.get(i));
 			String[] tokenArray = sentense.split("\\s+");
 
 			// the code per grammar for the sentence provided by the user
@@ -132,11 +137,14 @@ public class GrammarAnalyser {
 				if (localMax > globalMax) {
 					globalMax = localMax;
 					globalMaxFile = grammar;
+
+
 				}
 				localMax = -1000.0;
 			}
 			fileVsScore.put(globalMaxFile, globalMax);
-			senVsGram.put(globalMaxFile,sentense);
+			senVsGram.put(globalMaxFile,sentense_1);
+			i++;
 		}
 
 		Double max = Double.MIN_VALUE;
@@ -146,9 +154,11 @@ public class GrammarAnalyser {
 			if (max < fileVsScore.get(file)) {
 				max = fileVsScore.get(file);
 				output = file;
+
 			}
 		}
-		// System.out.println(senVsGram.get(output));
+		// System.out.println(senVsGram.get(output););
+		orig = senVsGram.get(output);
 		return output;
 	}
 }

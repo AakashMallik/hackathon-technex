@@ -21,10 +21,13 @@ class samsungtest {
 		String st_orig = st;
 
 		ArrayList<String> stList = new ArrayList<>();
+		HashMap <String, HashMap<String, ArrayList<String>>> mmm= new HashMap <> ();
 
 		stList = concept_parser.generate_concept(st);
 
 		ArrayList<String> processed_string_list = new ArrayList<>();
+		ArrayList<String> processed_string_list_1= new ArrayList<>();
+		HashMap<String, ArrayList<String>> tagmap = new HashMap<>();
 		outputAttr = new HashSet<>();
 		for (String pt : stList) {
 
@@ -32,7 +35,6 @@ class samsungtest {
 			HashMap<String, Set<String>> datetimeMap = ma.map;
 			for (String each: datetimeMap.keySet()) {
 				for (String item : datetimeMap.get(each)) {
-
 					outputAttr.add(each+" : "+item);
 				}
 			}
@@ -47,7 +49,10 @@ class samsungtest {
 
 
 			OpenPhrase op = new OpenPhrase(st);
-			HashMap<String, ArrayList<String>> tagmap = op.tagmap;
+			tagmap = op.tagmap;
+
+			mmm.put(pt, tagmap);
+
 			for (String each:tagmap.keySet() ) {
 				for (String item: tagmap.get(each)) {
 
@@ -58,12 +63,16 @@ class samsungtest {
 			st = pre.rExtraSpaces(op.st);
 
 			processed_string_list.add(st);
+			processed_string_list_1.add(pt);
 		}
 
 
-		st = grammarAnalyser.findGrammer(processed_string_list);
+		st = grammarAnalyser.findGrammer(processed_string_list, processed_string_list_1);
 
-		// System.out.println();
+		String s = grammarAnalyser.orig;
+		System.out.println(mmm.get(s));
+
+		System.out.println(s);
 
 		return st;
 
@@ -88,10 +97,10 @@ class samsungtest {
 				writer.println(result);
 
 				System.out.println("w: "+result);
-				for (String each: outputAttr) {
-					writer.println(each);
-					System.out.println("w: "+each);
-				}
+				// for (String each: outputAttr) {
+				// 	writer.println(each);
+				// 	System.out.println("w: "+each);
+				// }
 
 				System.out.println();
 			}
